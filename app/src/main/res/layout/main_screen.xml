@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical"
+    android:gravity="center_horizontal">
+
+    <!--  Button to view all workouts screen -->
+    <Button android:id="@+id/btnViewWorkouts"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="View Workouts"
+        android:layout_marginTop="25dip"/>
+
+    <!--  Button to create a new product screen -->
+    <Button android:id="@+id/btnCreateWorkout"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="Add New Workout"
+        android:layout_marginTop="25dip"/>
+
+</LinearLayout>
