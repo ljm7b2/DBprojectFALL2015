@@ -33,6 +33,13 @@
             android:name=".EditWorkoutActivity"
             android:label="Edit Workout" >
         </activity>
+
+        <activity android:name="RegistrationActivity"
+            android:label="Register User">
+
+        </activity>
+
+
     </application>
 
     <uses-permission android:name="android.permission.INTERNET" />
