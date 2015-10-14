@@ -30,7 +30,7 @@ public class RegistrationActivity extends Activity {
 
     // Progress Dialog
     private ProgressDialog pDialog;
-
+    private Spinner genderSpinner;
     JSONParser2 jsonParser2 = new JSONParser2();
     EditText inputFirstName;
     EditText inputLastName;
@@ -38,7 +38,7 @@ public class RegistrationActivity extends Activity {
     EditText inputPassword;
     EditText inputWeight;
     EditText inputHeight;
-    //EditText inputGender;
+    EditText inputGender;
 
 
     // url to create new product
@@ -52,10 +52,11 @@ public class RegistrationActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.register);
 
-//        Spinner spinner = (Spinner) findViewById(R.id.inputGender);
-//        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,R.array.gender_array, android.R.layout.simple_spinner_item);
-//        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-//        spinner.setAdapter(adapter);
+        genderSpinner = (Spinner) findViewById(R.id.inputGender);
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.gender_array, android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        genderSpinner.setAdapter(adapter);
+        AddSpinnerListener();
 
         // Edit Text
         inputFirstName = (EditText) findViewById(R.id.inputFirstName);
@@ -81,6 +82,7 @@ public class RegistrationActivity extends Activity {
                 String password = inputPassword.getText().toString();
                 String weight = inputWeight.getText().toString();
                 String height = inputHeight.getText().toString();
+                String sex = genderSpinner.getSelectedItem().toString();
 
                 if (nameFirst.equals("") || nameLast.equals("") || username.equals("") || password.equals("")) {
                     Toast toast = Toast.makeText(getApplicationContext(), "Please Complete All Data Fields!", Toast.LENGTH_LONG);
@@ -89,9 +91,13 @@ public class RegistrationActivity extends Activity {
                     return;
                 }
 
-                new RegisterUser().execute(nameFirst, nameLast, username, password, weight, height);
+                new RegisterUser().execute(nameFirst, nameLast, username, password, weight, height, sex);
             }
         });
+    }
+
+    public void AddSpinnerListener(){
+        genderSpinner.setOnItemSelectedListener(new SpinnerActivity());
     }
 
 
@@ -125,6 +131,7 @@ public class RegistrationActivity extends Activity {
             String password = args[3];
             String weight = args[4];
             String height = args[5];
+            String gender = args[6];
 
             // Building Parameters
             List<NameValuePair> params = new ArrayList<NameValuePair>();
@@ -134,7 +141,11 @@ public class RegistrationActivity extends Activity {
             params.add(new BasicNameValuePair("password", password));
             params.add(new BasicNameValuePair("weight", weight));
             params.add(new BasicNameValuePair("height", height));
-            //params.add(new BasicNameValuePair("gender", "M"));
+            if (gender.equals("Male")) {
+                params.add(new BasicNameValuePair("gender", "0"));
+            } else {
+                params.add(new BasicNameValuePair("gender", "1"));
+            }
 
             // getting JSON Object
             // Note that create product url accepts POST method
