@@ -42,7 +42,7 @@ public class RegistrationActivity extends Activity {
 
 
     // url to create new product
-    private static String url_create_workout = "http://fall2015db.asuscomm.com/fitness/CREATE_WORKOUT.php";
+    private static String url_create_workout = "http://fall2015db.asuscomm.com/FitnessDB/register.php";
 
     // JSON Node names
     private static final String TAG_SUCCESS = "success";
@@ -150,7 +150,7 @@ public class RegistrationActivity extends Activity {
 
                 if (success == 1) {
                     // successfully created product
-                    Intent i = new Intent(getApplicationContext(), AllWorkoutsActivity.class);
+                    Intent i = new Intent(getApplicationContext(), MainScreenActivity.class);
                     startActivity(i);
 
                     // closing this screen
