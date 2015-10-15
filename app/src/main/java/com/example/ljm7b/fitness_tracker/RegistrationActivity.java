@@ -24,6 +24,9 @@ import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.ParseException;
+import java.util.Date;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -90,6 +93,15 @@ public class RegistrationActivity extends Activity {
                 String sex = genderSpinner.getSelectedItem().toString();
                 String DOB = String.valueOf(dobPicker.getYear()) + dateDelimeter + String.valueOf(dobPicker.getMonth()) + dateDelimeter + String.valueOf(dobPicker.getDayOfMonth());
 
+                Date DOBdate = new Date();
+                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd");
+                try {
+                    DOBdate = dateFormat.parse(DOB);
+                }
+                catch (ParseException e){
+                    e.printStackTrace();
+                }
+
                 if (nameFirst.equals("") || nameLast.equals("") || username.equals("") || password.equals("")) {
                     Toast toast = Toast.makeText(getApplicationContext(), "Please Complete All Data Fields!", Toast.LENGTH_LONG);
                     toast.setGravity(Gravity.TOP| Gravity.CENTER_HORIZONTAL, 0, 100);
@@ -97,7 +109,7 @@ public class RegistrationActivity extends Activity {
                     return;
                 }
 
-                new RegisterUser().execute(nameFirst, nameLast, username, password, weight, height, sex, DOB);
+                new RegisterUser().execute(nameFirst, nameLast, username, password, weight, height, sex, DOBdate.toString());
             }
         });
     }
@@ -149,6 +161,7 @@ public class RegistrationActivity extends Activity {
             params.add(new BasicNameValuePair("weight", weight));
             params.add(new BasicNameValuePair("height", height));
             params.add(new BasicNameValuePair("DOB", DOB));
+            Log.d("date of birth", DOB);
             if (gender.equals("Male")) {
                 params.add(new BasicNameValuePair("gender", "0"));
             } else {
