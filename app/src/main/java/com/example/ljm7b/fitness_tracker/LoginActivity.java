@@ -12,11 +12,8 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.Spinner;
 import android.widget.Toast;
 
 import org.apache.http.NameValuePair;
@@ -27,24 +24,17 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-public class RegistrationActivity extends Activity {
+public class LoginActivity extends Activity {
 
     // Progress Dialog
     private ProgressDialog pDialog;
-    private Spinner genderSpinner;
-    private DatePicker dobPicker;
-    private String dateDelimeter = "-";
     JSONParser2 jsonParser2 = new JSONParser2();
-    EditText inputFirstName;
-    EditText inputLastName;
     EditText inputUserName;
     EditText inputPassword;
-    EditText inputWeight;
-    EditText inputHeight;
 
 
     // url to create new product
-    private static String url_register_user = "http://fall2015db.asuscomm.com/FitnessDB/register.php";
+    private static String url_create_workout = "http://fall2015db.asuscomm.com/FitnessDB/register.php";
 
     // JSON Node names
     private static final String TAG_SUCCESS = "success";
@@ -52,60 +42,36 @@ public class RegistrationActivity extends Activity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.register);
-
-        genderSpinner = (Spinner) findViewById(R.id.inputGender);
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.gender_array, android.R.layout.simple_spinner_item);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        genderSpinner.setAdapter(adapter);
-        AddSpinnerListener();
-
-        dobPicker = (DatePicker) findViewById(R.id.inputDOB);
+        setContentView(R.layout.login);
 
         // Edit Text
-        inputFirstName = (EditText) findViewById(R.id.inputFirstName);
-        inputLastName = (EditText) findViewById(R.id.inputLastName);
         inputUserName = (EditText) findViewById(R.id.inputUsername);
         inputPassword = (EditText) findViewById(R.id.inputPassword);
-        inputWeight = (EditText) findViewById(R.id.inputWeight);
-        inputHeight = (EditText) findViewById(R.id.inputHeight);
-
 
         // Create button
-        Button btnRegisterUser = (Button) findViewById(R.id.btnRegister);
+        Button btnLoginUser = (Button) findViewById(R.id.btnLogin);
 
         // button click event
-        btnRegisterUser.setOnClickListener(new View.OnClickListener() {
+        btnLoginUser.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View view) {
                 // creating new product in background thread
 
-                String nameFirst = inputFirstName.getText().toString();
-                String nameLast = inputLastName.getText().toString();
                 String username = inputUserName.getText().toString();
                 String password = inputPassword.getText().toString();
-                String weight = inputWeight.getText().toString();
-                String height = inputHeight.getText().toString();
-                String sex = genderSpinner.getSelectedItem().toString();
-                String DOB = String.valueOf(dobPicker.getYear()) + dateDelimeter + String.valueOf(dobPicker.getMonth()) + dateDelimeter + String.valueOf(dobPicker.getDayOfMonth());
 
-                if (nameFirst.equals("") || nameLast.equals("") || username.equals("") || password.equals("")) {
+                if (username.equals("") || password.equals("")) {
                     Toast toast = Toast.makeText(getApplicationContext(), "Please Complete All Data Fields!", Toast.LENGTH_LONG);
-                    toast.setGravity(Gravity.TOP| Gravity.CENTER_HORIZONTAL, 0, 100);
+                    toast.setGravity(Gravity.TOP | Gravity.CENTER_HORIZONTAL, 0, 100);
                     toast.show();
                     return;
                 }
 
-                new RegisterUser().execute(nameFirst, nameLast, username, password, weight, height, sex, DOB);
+                new RegisterUser().execute(username, password);
             }
         });
     }
-
-    public void AddSpinnerListener(){
-        genderSpinner.setOnItemSelectedListener(new SpinnerActivity());
-    }
-
 
     /**
      * Background Async Task to Create new product
@@ -118,8 +84,8 @@ public class RegistrationActivity extends Activity {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            pDialog = new ProgressDialog(RegistrationActivity.this);
-            pDialog.setMessage("Register..");
+            pDialog = new ProgressDialog(LoginActivity.this);
+            pDialog.setMessage("Logging in..");
             pDialog.setIndeterminate(false);
             pDialog.setCancelable(true);
             pDialog.show();
@@ -131,45 +97,28 @@ public class RegistrationActivity extends Activity {
         @Override
         protected String doInBackground(String... args) {
 
-            String nameFirst = args[0];
-            String nameLast = args[1];
-            String username = args[2];
-            String password = args[3];
-            String weight = args[4];
-            String height = args[5];
-            String gender = args[6];
-            String DOB = args[7];
+            String username = args[0];
+            String password = args[1];
 
             // Building Parameters
             List<NameValuePair> params = new ArrayList<NameValuePair>();
-            params.add(new BasicNameValuePair("nameFirst", nameFirst));
-            params.add(new BasicNameValuePair("nameLast", nameLast));
             params.add(new BasicNameValuePair("username", username));
             params.add(new BasicNameValuePair("password", password));
-            params.add(new BasicNameValuePair("weight", weight));
-            params.add(new BasicNameValuePair("height", height));
-            params.add(new BasicNameValuePair("DOB", DOB));
-            if (gender.equals("Male")) {
-                params.add(new BasicNameValuePair("gender", "0"));
-            } else {
-                params.add(new BasicNameValuePair("gender", "1"));
-            }
-            JSONObject json = new JSONObject();
-            try {
+
             // getting JSON Object
             // Note that create product url accepts POST method
-                json = jsonParser2.makeHttpRequest(url_register_user,
-                        "POST", params);
-
+            JSONObject json = jsonParser2.makeHttpRequest(url_create_workout,
+                    "GET", params);
+            try {
                 // check log cat from response
                 Log.d("Create Response", json.toString());
             }
-            catch(Exception e){
+            catch(Exception e) {
                 Intent i = new Intent(getApplicationContext(), LoginRegisterActivity.class);
                 startActivity(i);
-                finish();
-                //TODO: ADD MESSAGE TO THE USER ABOUT A FAILURE TO ACCESS DB
-                return null;
+                Toast toast = Toast.makeText(getApplicationContext(), "Something went wrong on our side...", Toast.LENGTH_LONG);
+                toast.setGravity(Gravity.TOP | Gravity.CENTER_HORIZONTAL, 0, 100);
+                toast.show();
             }
 
             // check for success tag
