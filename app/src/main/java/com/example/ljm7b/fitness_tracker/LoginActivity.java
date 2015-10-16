@@ -28,6 +28,7 @@ public class LoginActivity extends Activity {
 
     // Progress Dialog
     private ProgressDialog pDialog;
+    SessionVariables Global= new SessionVariables();
     JSONParser2 jsonParser2 = new JSONParser2();
     EditText inputUserName;
     EditText inputPassword;
@@ -38,6 +39,7 @@ public class LoginActivity extends Activity {
 
     // JSON Node names
     private static final String TAG_SUCCESS = "success";
+    private static final String TAG_USERID = "user_id";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -128,6 +130,7 @@ public class LoginActivity extends Activity {
 
                 if (success == 1) {
                     // successfully created product
+                    Global.setUserID(json.getString(TAG_USERID));
                     Intent i = new Intent(getApplicationContext(), MainScreenActivity.class);
                     startActivity(i);
 
