@@ -34,7 +34,7 @@ public class LoginActivity extends Activity {
 
 
     // url to create new product
-    private static String url_create_workout = "http://fall2015db.asuscomm.com/FitnessDB/register.php";
+    private static String url_login_user = "http://fall2015db.asuscomm.com/FitnessDB/login.php";
 
     // JSON Node names
     private static final String TAG_SUCCESS = "success";
@@ -105,20 +105,21 @@ public class LoginActivity extends Activity {
             params.add(new BasicNameValuePair("username", username));
             params.add(new BasicNameValuePair("password", password));
 
+            JSONObject json = new JSONObject();
             // getting JSON Object
             // Note that create product url accepts POST method
-            JSONObject json = jsonParser2.makeHttpRequest(url_create_workout,
-                    "GET", params);
             try {
+                json = jsonParser2.makeHttpRequest(url_login_user,
+                        "POST", params);
+
                 // check log cat from response
                 Log.d("Create Response", json.toString());
             }
             catch(Exception e) {
                 Intent i = new Intent(getApplicationContext(), LoginRegisterActivity.class);
                 startActivity(i);
-                Toast toast = Toast.makeText(getApplicationContext(), "Something went wrong on our side...", Toast.LENGTH_LONG);
-                toast.setGravity(Gravity.TOP | Gravity.CENTER_HORIZONTAL, 0, 100);
-                toast.show();
+                finish();
+                return null;
             }
 
             // check for success tag
