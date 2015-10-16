@@ -91,16 +91,8 @@ public class RegistrationActivity extends Activity {
                 String weight = inputWeight.getText().toString();
                 String height = inputHeight.getText().toString();
                 String sex = genderSpinner.getSelectedItem().toString();
-                String DOB = String.valueOf(dobPicker.getYear()) + dateDelimeter + String.valueOf(dobPicker.getMonth()) + dateDelimeter + String.valueOf(dobPicker.getDayOfMonth());
+                String DOB = String.valueOf(dobPicker.getYear()) + dateDelimeter + String.valueOf(checkDigit(dobPicker.getMonth())) + dateDelimeter + String.valueOf(checkDigit(dobPicker.getDayOfMonth()));
 
-                Date DOBdate = new Date();
-                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd");
-                try {
-                    DOBdate = dateFormat.parse(DOB);
-                }
-                catch (ParseException e){
-                    e.printStackTrace();
-                }
 
                 if (nameFirst.equals("") || nameLast.equals("") || username.equals("") || password.equals("")) {
                     Toast toast = Toast.makeText(getApplicationContext(), "Please Complete All Data Fields!", Toast.LENGTH_LONG);
@@ -109,10 +101,15 @@ public class RegistrationActivity extends Activity {
                     return;
                 }
 
-                new RegisterUser().execute(nameFirst, nameLast, username, password, weight, height, sex, DOBdate.toString());
+                new RegisterUser().execute(nameFirst, nameLast, username, password, weight, height, sex, DOB);
             }
         });
     }
+    public String checkDigit(int number)
+    {
+        return number<=9?"0"+number:String.valueOf(number);
+    }
+
 
     public void AddSpinnerListener(){
         genderSpinner.setOnItemSelectedListener(new SpinnerActivity());
