@@ -29,7 +29,6 @@ public class JSONParser2 {
     static InputStream is = null;
     static JSONObject jObj = null;
     static String json = "";
-
     // constructor
     public JSONParser2() {
 

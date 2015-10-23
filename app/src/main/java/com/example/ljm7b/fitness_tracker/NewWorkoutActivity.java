@@ -127,7 +127,7 @@ public class NewWorkoutActivity extends Activity {
 
                 if (success == 1) {
                     // successfully created product
-                    Intent i = new Intent(getApplicationContext(), AllWorkoutsActivity.class);
+                    Intent i = new Intent(getApplicationContext(), LogBrainWorkoutActivity.class);
                     startActivity(i);
 
                     // closing this screen

@@ -18,7 +18,7 @@
         </activity>
         <!-- All Product Activity -->
         <activity
-            android:name=".AllWorkoutsActivity"
+            android:name=".LogBrainWorkoutActivity"
             android:label="All Workouts" >
         </activity>
 

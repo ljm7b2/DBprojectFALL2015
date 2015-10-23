@@ -9,7 +9,7 @@ import android.widget.Button;
 
 public class MainScreenActivity extends Activity{
 
-    Button btnViewWorkouts;
+    Button btnLogBrainWorkout;
     Button btnCreateWorkout;
     Button btnVideoWorkout;
 
@@ -20,7 +20,7 @@ public class MainScreenActivity extends Activity{
         setContentView(R.layout.main_screen);
 
         // Buttons
-        btnViewWorkouts = (Button) findViewById(R.id.btnViewWorkouts);
+        btnLogBrainWorkout = (Button) findViewById(R.id.btnLogBrainWorkout);
         btnCreateWorkout = (Button) findViewById(R.id.btnCreateWorkout);
         btnVideoWorkout = (Button) findViewById(R.id.btnVideoWorkouts);
 
@@ -31,12 +31,12 @@ public class MainScreenActivity extends Activity{
 
 
         // view products click event
-        btnViewWorkouts.setOnClickListener(new View.OnClickListener() {
+        btnLogBrainWorkout.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View view) {
                 // Launching All products Activity
-                Intent i = new Intent(getApplicationContext(), AllWorkoutsActivity.class);
+                Intent i = new Intent(getApplicationContext(), LogBrainWorkoutActivity.class);
                 startActivity(i);
 
             }
