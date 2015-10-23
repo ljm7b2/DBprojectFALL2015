@@ -10,6 +10,7 @@ import android.widget.Button;
 public class MainScreenActivity extends Activity{
 
     Button btnLogBrainWorkout;
+    Button btnLogBodyWorkout;
     Button btnCreateWorkout;
     Button btnVideoWorkout;
 
@@ -21,6 +22,7 @@ public class MainScreenActivity extends Activity{
 
         // Buttons
         btnLogBrainWorkout = (Button) findViewById(R.id.btnLogBrainWorkout);
+        btnLogBodyWorkout = (Button) findViewById(R.id.btnLogBodyWorkout);
         btnCreateWorkout = (Button) findViewById(R.id.btnCreateWorkout);
         btnVideoWorkout = (Button) findViewById(R.id.btnVideoWorkouts);
 
@@ -37,6 +39,19 @@ public class MainScreenActivity extends Activity{
             public void onClick(View view) {
                 // Launching All products Activity
                 Intent i = new Intent(getApplicationContext(), LogBrainWorkoutActivity.class);
+                startActivity(i);
+
+            }
+        });
+
+
+        // view products click event
+        btnLogBodyWorkout.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View view) {
+                // Launching All products Activity
+                Intent i = new Intent(getApplicationContext(), LogBodyWorkoutActivity.class);
                 startActivity(i);
 
             }

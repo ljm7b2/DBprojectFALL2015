@@ -30,13 +30,13 @@ import java.util.List;
 
 
 
-public class LogBrainWorkoutActivity extends Activity {
+public class LogBodyWorkoutActivity extends Activity {
 
     // Progress Dialog
     private ProgressDialog pDialog;
-    private Spinner brainWorkoutSpinner;
+    private Spinner bodyWorkoutSpinner;
 
-    private static String url_log_brain_workout = "http://fall2015db.asuscomm.com/FitnessDB/logBrainWorkout.php";
+    private static String url_log_brain_workout = "http://fall2015db.asuscomm.com/FitnessDB/logBodyWorkout.php";
 
     JSONParser2 jsonParser2 = new JSONParser2();
 
@@ -50,12 +50,12 @@ public class LogBrainWorkoutActivity extends Activity {
     ArrayList<HashMap<String, String>> workoutsList;
 
     // url to get all workouts list
-    private static String url_all_workouts = "http://fall2015db.asuscomm.com/FitnessDB/getAllBrainWorkouts.php";
+    private static String url_all_workouts = "http://fall2015db.asuscomm.com/FitnessDB/getAllBodyWorkouts.php";
 
     // JSON Node names
     private static final String TAG_SUCCESS = "success";
-    private static final String TAG_WORKOUTS = "brain_workouts";
-    private static final String TAG_EXERCISE_NAME = "Exercise_Name";
+    private static final String TAG_WORKOUTS = "body_workouts";
+    private static final String TAG_EXERCISE_NAME = "Workout_Name";
     public static List<String> lables = new ArrayList<String>();
     public static ArrayAdapter<String> spinnerAdapter;
 
@@ -83,7 +83,7 @@ public class LogBrainWorkoutActivity extends Activity {
 
         Log.d("Workout list size", String.valueOf(workoutsList.size()));
 
-        brainWorkoutSpinner = (Spinner) findViewById(R.id.inputBrainWorkout);
+        bodyWorkoutSpinner = (Spinner) findViewById(R.id.inputBrainWorkout);
         AddSpinnerListener();
 
         // Create button
@@ -92,21 +92,21 @@ public class LogBrainWorkoutActivity extends Activity {
 
             @Override
             public void onClick(View view) {
-                    // creating new product in background thread
-                    String userID = new SessionVariables().getUserID();
-                    String brainWorkoutName = brainWorkoutSpinner.getSelectedItem().toString();
-                    String workoutTime = timeSpent.getText().toString();
+                // creating new product in background thread
+                String userID = new SessionVariables().getUserID();
+                String brainWorkoutName = bodyWorkoutSpinner.getSelectedItem().toString();
+                String workoutTime = timeSpent.getText().toString();
 
 
-                    if (workoutTime.equals("")) {
-                        Toast toast = Toast.makeText(getApplicationContext(), "Please Complete All Data Fields!", Toast.LENGTH_LONG);
-                        toast.setGravity(Gravity.TOP | Gravity.CENTER_HORIZONTAL, 0, 100);
-                        toast.show();
-                        return;
-                    }
-
-                    new LogBrainWorkout().execute(userID, brainWorkoutName, workoutTime);
+                if (workoutTime.equals("")) {
+                    Toast toast = Toast.makeText(getApplicationContext(), "Please Complete All Data Fields!", Toast.LENGTH_LONG);
+                    toast.setGravity(Gravity.TOP | Gravity.CENTER_HORIZONTAL, 0, 100);
+                    toast.show();
+                    return;
                 }
+
+                new LogBrainWorkout().execute(userID, brainWorkoutName, workoutTime);
+            }
         });
     }
 
@@ -127,7 +127,7 @@ public class LogBrainWorkoutActivity extends Activity {
     }
 
     public void AddSpinnerListener(){
-        brainWorkoutSpinner.setOnItemSelectedListener(new SpinnerActivity());
+        bodyWorkoutSpinner.setOnItemSelectedListener(new SpinnerActivity());
     }
 
     /**
@@ -141,7 +141,7 @@ public class LogBrainWorkoutActivity extends Activity {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            pDialog = new ProgressDialog(LogBrainWorkoutActivity.this);
+            pDialog = new ProgressDialog(LogBodyWorkoutActivity.this);
             pDialog.setMessage("Loading workouts. Please wait...");
             pDialog.setIndeterminate(false);
             pDialog.setCancelable(false);
@@ -160,7 +160,7 @@ public class LogBrainWorkoutActivity extends Activity {
             JSONObject json = jParser2.makeHttpRequest(url_all_workouts, "GET", params);
 
             // Check your log cat for JSON reponse
-            Log.d("All workouts: ", json.toString());
+            Log.d("All workouts to view: ", json.toString());
 
             try {
                 // Checking for SUCCESS TAG
@@ -225,7 +225,7 @@ public class LogBrainWorkoutActivity extends Activity {
     void buildSpinner(List<String> data){
         spinnerAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, data );
         spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        brainWorkoutSpinner.setAdapter(spinnerAdapter);
+        bodyWorkoutSpinner.setAdapter(spinnerAdapter);
     }
 
 
@@ -241,7 +241,7 @@ public class LogBrainWorkoutActivity extends Activity {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            pDialog = new ProgressDialog(LogBrainWorkoutActivity.this);
+            pDialog = new ProgressDialog(LogBodyWorkoutActivity.this);
             pDialog.setMessage("Logging Workout..");
             pDialog.setIndeterminate(false);
             pDialog.setCancelable(true);
