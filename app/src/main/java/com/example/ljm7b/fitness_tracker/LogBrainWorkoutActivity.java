@@ -28,6 +28,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+
+
 public class LogBrainWorkoutActivity extends Activity {
 
     // Progress Dialog
@@ -54,6 +56,8 @@ public class LogBrainWorkoutActivity extends Activity {
     private static final String TAG_SUCCESS = "success";
     private static final String TAG_WORKOUTS = "brain_workouts";
     private static final String TAG_EXERCISE_NAME = "Exercise_Name";
+    public static List<String> lables = new ArrayList<String>();
+    public static ArrayAdapter<String> spinnerAdapter;
 
     //workouts JSONArray
     JSONArray workouts = null;
@@ -69,23 +73,26 @@ public class LogBrainWorkoutActivity extends Activity {
         timeSpent = (EditText) findViewById(R.id.inputTime);
 
         // Loading workouts in Background Thread
-        new LoadAllWorkouts().execute();
+
 
         //Populate spinner from database
-        List<String> lables = new ArrayList<String>();
+        lables = new ArrayList<String>();
+
+        new LoadAllWorkouts().execute();
+
+
+        Log.d("Workout list size", String.valueOf(workoutsList.size()));
+
         for (int i = 0; i < workoutsList.size(); i++) {
+
+            Log.d("workout list item", workoutsList.get(i).get(TAG_EXERCISE_NAME));
             lables.add(workoutsList.get(i).get(TAG_EXERCISE_NAME));
         }
         brainWorkoutSpinner = (Spinner) findViewById(R.id.inputBrainWorkout);
-        ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<String>(this,
-                android.R.layout.simple_spinner_item, lables);
-        spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        brainWorkoutSpinner.setAdapter(spinnerAdapter);
         AddSpinnerListener();
 
         // Create button
         Button btnLogBrainWorkout = (Button) findViewById(R.id.btnLogBrainWorkout);
-
         btnLogBrainWorkout.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -209,9 +216,24 @@ public class LogBrainWorkoutActivity extends Activity {
             // dismiss the dialog after getting all workouts
             pDialog.dismiss();
 
+            for (int i = 0; i < workoutsList.size(); i++) {
+
+                Log.d("workout list item", workoutsList.get(i).get(TAG_EXERCISE_NAME));
+                lables.add(workoutsList.get(i).get(TAG_EXERCISE_NAME));
+            }
+            buildSpinner(lables);
+
         }
 
     }
+
+    void buildSpinner(List<String> data){
+        spinnerAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, data );
+        spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        brainWorkoutSpinner.setAdapter(spinnerAdapter);
+    }
+
+
 
     /**
      * Background Async Task to Create new product
