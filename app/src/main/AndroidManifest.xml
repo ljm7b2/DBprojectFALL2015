@@ -13,7 +13,8 @@
 
         <activity
             android:name=".MainScreenActivity"
-            android:label="@string/app_name" >
+            android:label="@string/app_name"
+            android:launchMode="singleTop">
 
         </activity>
         <!-- All Product Activity -->
@@ -63,6 +64,8 @@
             android:stateNotNeeded="true"/>
 
         <activity android:name=".AllWorkoutsActivity"/>
+
+        <activity android:name=".CombinedChartActivity"/>
 
 
         <meta-data

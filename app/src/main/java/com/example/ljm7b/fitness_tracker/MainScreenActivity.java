@@ -14,6 +14,7 @@ public class MainScreenActivity extends Activity{
     Button btnCreateWorkout;
     Button btnVideoWorkout;
     Button btnGetWorkoutLog;
+    Button btnShowGraph;
 
 
     @Override
@@ -27,6 +28,7 @@ public class MainScreenActivity extends Activity{
         btnCreateWorkout = (Button) findViewById(R.id.btnCreateWorkout);
         btnVideoWorkout = (Button) findViewById(R.id.btnVideoWorkouts);
         btnGetWorkoutLog = (Button) findViewById(R.id.btnGetWorkoutLog);
+        btnShowGraph = (Button) findViewById(R.id.btnShowGraph);
 
         //Globals
 
@@ -95,6 +97,32 @@ public class MainScreenActivity extends Activity{
 
             }
         });
+        // view products click event
+        btnShowGraph.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View view) {
+                // Launching create new product activity
+                Intent i = new Intent(getApplicationContext(), CombinedChartActivity.class);
+                startActivity(i);
+
+            }
+        });
+
 
     }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+    }
+
+
 }

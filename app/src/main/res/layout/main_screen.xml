@@ -36,4 +36,10 @@
         android:layout_height="wrap_content"
         android:text="View Workout Log"
         android:layout_marginTop="25dip"/>
+
+    <Button android:id="@+id/btnShowGraph"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="Show Graph"
+        android:layout_marginTop="25dip"/>
 </LinearLayout>
