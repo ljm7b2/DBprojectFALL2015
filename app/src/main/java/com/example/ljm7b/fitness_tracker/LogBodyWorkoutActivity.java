@@ -94,7 +94,7 @@ public class LogBodyWorkoutActivity extends Activity {
             public void onClick(View view) {
                 // creating new product in background thread
                 String userID = new SessionVariables().getUserID();
-                String brainWorkoutName = bodyWorkoutSpinner.getSelectedItem().toString();
+                String bodyWorkoutName = bodyWorkoutSpinner.getSelectedItem().toString();
                 String workoutTime = timeSpent.getText().toString();
 
 
@@ -105,7 +105,7 @@ public class LogBodyWorkoutActivity extends Activity {
                     return;
                 }
 
-                new LogBrainWorkout().execute(userID, brainWorkoutName, workoutTime);
+                new LogBrainWorkout().execute(userID, bodyWorkoutName, workoutTime);
             }
         });
     }
@@ -255,13 +255,13 @@ public class LogBodyWorkoutActivity extends Activity {
         protected String doInBackground(String... args) {
 
             String userID = args[0];
-            String brainWorkoutName = args[1];
+            String bodyWorkoutName = args[1];
             String workoutTime = args[2];
 
             // Building Parameters
             List<NameValuePair> params = new ArrayList<NameValuePair>();
             params.add(new BasicNameValuePair("userID", userID));
-            params.add(new BasicNameValuePair("brainWorkoutName", brainWorkoutName));
+            params.add(new BasicNameValuePair("bodyWorkoutName", bodyWorkoutName));
             params.add(new BasicNameValuePair("workoutTime", workoutTime));
 
             JSONObject json = new JSONObject();

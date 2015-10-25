@@ -32,7 +32,7 @@ public class LoginActivity extends Activity {
     JSONParser2 jsonParser2 = new JSONParser2();
     EditText inputUserName;
     EditText inputPassword;
-
+    private int globalSuccess;
 
     // url to create new product
     private static String url_login_user = "http://fall2015db.asuscomm.com/FitnessDB/login.php";
@@ -121,15 +121,16 @@ public class LoginActivity extends Activity {
                 Intent i = new Intent(getApplicationContext(), LoginRegisterActivity.class);
                 startActivity(i);
                 finish();
+
                 return null;
             }
 
             // check for success tag
             try {
                 int success = json.getInt(TAG_SUCCESS);
-
+                globalSuccess = success;
                 if (success == 1) {
-                    // successfully created product
+                    // successfully logged in
                     Global.setUserID(json.getString(TAG_USERID));
                     Intent i = new Intent(getApplicationContext(), MainScreenActivity.class);
                     startActivity(i);
@@ -138,6 +139,7 @@ public class LoginActivity extends Activity {
                     finish();
                 } else {
                     // failed to create workout
+
                 }
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -153,6 +155,15 @@ public class LoginActivity extends Activity {
         protected void onPostExecute(String file_url) {
             // dismiss the dialog once done
             pDialog.dismiss();
+
+            if(globalSuccess == 0){
+
+                inputUserName.setText("");
+                inputPassword.setText("");
+                Toast toast = Toast.makeText(getApplicationContext(), "Username/Password Are Incorrect.", Toast.LENGTH_LONG);
+                toast.setGravity(Gravity.TOP | Gravity.CENTER_HORIZONTAL, 0, 100);
+                toast.show();
+            }
         }
 
     }

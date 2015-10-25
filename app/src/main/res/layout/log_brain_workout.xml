@@ -38,23 +38,23 @@
         android:singleLine="true"
         android:inputType="numberDecimal"/>
 
-    <!-- Description Label -->
-    <TextView android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="Description"
-        android:paddingLeft="10dip"
-        android:paddingRight="10dip"
-        android:paddingTop="10dip"
-        android:textSize="17dip"/>
+    <!--&lt;!&ndash; Description Label &ndash;&gt;-->
+    <!--<TextView android:layout_width="fill_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:text="Description"-->
+        <!--android:paddingLeft="10dip"-->
+        <!--android:paddingRight="10dip"-->
+        <!--android:paddingTop="10dip"-->
+        <!--android:textSize="17dip"/>-->
 
-    <!-- Input description -->
-    <EditText android:id="@+id/inputDesc"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="5dip"
-        android:layout_marginBottom="15dip"
-        android:lines="4"
-        android:gravity="top"/>
+    <!--&lt;!&ndash; Input description &ndash;&gt;-->
+    <!--<EditText android:id="@+id/inputDesc"-->
+        <!--android:layout_width="fill_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_margin="5dip"-->
+        <!--android:layout_marginBottom="15dip"-->
+        <!--android:lines="4"-->
+        <!--android:gravity="top"/>-->
 
     <!-- Button Create Product -->
     <Button android:id="@+id/btnLogBrainWorkout"

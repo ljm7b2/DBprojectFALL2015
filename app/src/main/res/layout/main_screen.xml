@@ -18,16 +18,22 @@
         android:text="Log Body Workout"
         android:layout_marginTop="25dip"/>
 
-    <!--  Button to create a new product screen -->
-    <Button android:id="@+id/btnCreateWorkout"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="Add New Workout"
-        android:layout_marginTop="25dip"/>
+    <!--<Button android:id="@+id/btnCreateWorkout"-->
+        <!--android:layout_width="fill_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:text="Add New Workout"-->
+        <!--android:layout_marginTop="25dip"/>-->
 
     <Button android:id="@+id/btnVideoWorkouts"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:text="Video Workouts"
+        android:layout_marginTop="25dip"/>
+
+
+    <Button android:id="@+id/btnGetWorkoutLog"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="View Workout Log"
         android:layout_marginTop="25dip"/>
 </LinearLayout>

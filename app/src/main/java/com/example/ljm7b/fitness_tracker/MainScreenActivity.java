@@ -13,6 +13,7 @@ public class MainScreenActivity extends Activity{
     Button btnLogBodyWorkout;
     Button btnCreateWorkout;
     Button btnVideoWorkout;
+    Button btnGetWorkoutLog;
 
 
     @Override
@@ -25,6 +26,7 @@ public class MainScreenActivity extends Activity{
         btnLogBodyWorkout = (Button) findViewById(R.id.btnLogBodyWorkout);
         btnCreateWorkout = (Button) findViewById(R.id.btnCreateWorkout);
         btnVideoWorkout = (Button) findViewById(R.id.btnVideoWorkouts);
+        btnGetWorkoutLog = (Button) findViewById(R.id.btnGetWorkoutLog);
 
         //Globals
 
@@ -56,18 +58,18 @@ public class MainScreenActivity extends Activity{
 
             }
         });
-
-        // view products click event
-        btnCreateWorkout.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View view) {
-                // Launching create new product activity
-                Intent i = new Intent(getApplicationContext(), NewWorkoutActivity.class);
-                startActivity(i);
-
-            }
-        });
+//
+//        // view products click event
+//        btnCreateWorkout.setOnClickListener(new View.OnClickListener() {
+//
+//            @Override
+//            public void onClick(View view) {
+//                // Launching create new product activity
+//                Intent i = new Intent(getApplicationContext(), NewWorkoutActivity.class);
+//                startActivity(i);
+//
+//            }
+//        });
 
 
         // view products click event
@@ -77,6 +79,18 @@ public class MainScreenActivity extends Activity{
             public void onClick(View view) {
                 // Launching create new product activity
                 Intent i = new Intent(getApplicationContext(), VideoMainActivity.class);
+                startActivity(i);
+
+            }
+        });
+
+        // view products click event
+        btnGetWorkoutLog.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View view) {
+                // Launching create new product activity
+                Intent i = new Intent(getApplicationContext(), AllWorkoutsActivity.class);
                 startActivity(i);
 
             }
