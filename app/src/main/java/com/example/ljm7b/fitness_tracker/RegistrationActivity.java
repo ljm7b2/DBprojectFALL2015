@@ -51,6 +51,7 @@ public class RegistrationActivity extends Activity {
 
     // JSON Node names
     private static final String TAG_SUCCESS = "success";
+    private static final String TAG_USERID = "user_id";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -188,6 +189,7 @@ public class RegistrationActivity extends Activity {
 
                 if (success == 1) {
                     // successfully created product
+                    new SessionVariables().setUserID(json.getString(TAG_USERID));
                     Intent i = new Intent(getApplicationContext(), MainScreenActivity.class);
                     startActivity(i);
 
