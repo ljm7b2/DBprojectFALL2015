@@ -190,7 +190,7 @@ public class RegistrationActivity extends Activity {
                 if (success == 1) {
                     // successfully created product
                     new SessionVariables().setUserID(json.getString(TAG_USERID));
-                    Intent i = new Intent(getApplicationContext(), MainScreenActivity.class);
+                    Intent i = new Intent(getApplicationContext(), SetGoalsActivity.class);
                     startActivity(i);
 
                     // closing this screen

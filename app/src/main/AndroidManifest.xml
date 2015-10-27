@@ -67,6 +67,7 @@
 
         <activity android:name=".CombinedChartActivity"/>
 
+        <activity android:name=".SetGoalsActivity"/>
 
         <meta-data
             android:name="io.fabric.ApiKey"
