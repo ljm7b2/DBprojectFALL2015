@@ -15,7 +15,7 @@
 
     <!-- Input Name -->
     <Spinner
-        android:id="@+id/inputBrainWorkout"
+        android:id="@+id/inputBodyWorkout"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         />
@@ -30,7 +30,7 @@
         android:textSize="17dip"/>
 
     <!-- Input Price -->
-    <EditText android:id="@+id/inputTime"
+    <EditText android:id="@+id/inputTime2"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_margin="5dip"
@@ -40,9 +40,9 @@
 
 
     <!-- Button Create Product -->
-    <Button android:id="@+id/btnLogBrainWorkout"
+    <Button android:id="@+id/btnLogBodyWorkout"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="Log brain Workout"/>
+        android:text="Log Body Workout"/>
 
 </LinearLayout>

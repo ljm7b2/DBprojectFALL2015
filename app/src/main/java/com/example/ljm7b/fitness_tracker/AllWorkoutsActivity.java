@@ -133,7 +133,7 @@ public class AllWorkoutsActivity extends ListActivity {
                             // adding each child node to HashMap key => value
                             //map.put(TAG_WID, id);
                             map.put(TAG_NAME, "Activity: " + name);
-                            map.put(TAG_DURATION, "Duration: " + duration);
+                            map.put(TAG_DURATION, "Duration: " + duration + " hours");
                             map.put(TAG_TYPE, "Description: " + type);
 
                             // adding HashList to ArrayList

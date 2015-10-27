@@ -65,12 +65,12 @@ public class LogBodyWorkoutActivity extends Activity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.log_brain_workout);
+        setContentView(R.layout.log_body_workout);
 
         // Hashmap for Gender spinner
         workoutsList = new ArrayList<HashMap<String, String>>();
 
-        timeSpent = (EditText) findViewById(R.id.inputTime);
+        timeSpent = (EditText) findViewById(R.id.inputTime2);
 
         // Loading workouts in Background Thread
 
@@ -83,11 +83,11 @@ public class LogBodyWorkoutActivity extends Activity {
 
         Log.d("Workout list size", String.valueOf(workoutsList.size()));
 
-        bodyWorkoutSpinner = (Spinner) findViewById(R.id.inputBrainWorkout);
+        bodyWorkoutSpinner = (Spinner) findViewById(R.id.inputBodyWorkout);
         AddSpinnerListener();
 
         // Create button
-        Button btnLogBrainWorkout = (Button) findViewById(R.id.btnLogBrainWorkout);
+        Button btnLogBrainWorkout = (Button) findViewById(R.id.btnLogBodyWorkout);
         btnLogBrainWorkout.setOnClickListener(new View.OnClickListener() {
 
             @Override
