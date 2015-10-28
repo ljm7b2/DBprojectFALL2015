@@ -21,6 +21,9 @@ import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.Date;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -40,6 +43,7 @@ public class LoginActivity extends Activity {
     // JSON Node names
     private static final String TAG_SUCCESS = "success";
     private static final String TAG_USERID = "user_id";
+    private static final String TAG_GOAL_SET_DATE = "goal_set_date";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -132,8 +136,26 @@ public class LoginActivity extends Activity {
                 if (success == 1) {
                     // successfully logged in
                     Global.setUserID(json.getString(TAG_USERID));
-                    Intent i = new Intent(getApplicationContext(), MainScreenActivity.class);
-                    startActivity(i);
+                    String GoalSetDate = json.getString(TAG_GOAL_SET_DATE);
+                    SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+                    int dateDifference = 0;
+                    try {
+                        String nowString = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
+                        Date nowDate = format.parse(nowString);
+                        Date date = format.parse(GoalSetDate);
+                        dateDifference = 8;//nowDate.compareTo(date);
+                    } catch (ParseException e) {
+                        // TODO Auto-generated catch block
+                        e.printStackTrace();
+                    }
+                    if (dateDifference > 7){
+                        Intent i = new Intent(getApplicationContext(), SetGoalsActivity.class);
+                        startActivity(i);
+                    }
+                    else {
+                        Intent i = new Intent(getApplicationContext(), MainScreenActivity.class);
+                        startActivity(i);
+                    }
 
                     // closing this screen
                     finish();
