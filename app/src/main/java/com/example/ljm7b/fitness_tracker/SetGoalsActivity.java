@@ -5,7 +5,9 @@ package com.example.ljm7b.fitness_tracker;
  */
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -49,6 +51,25 @@ public class SetGoalsActivity extends Activity {
         // Edit Text
         inputBrainGoal = (EditText) findViewById(R.id.inputBrainGoal);
         inputBodyGoal = (EditText) findViewById(R.id.inputBodyGoal);
+
+        if (new SessionVariables().isDateExpired()){
+
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+            builder.setMessage(R.string.goal_alert_message)
+                    .setTitle(R.string.goal_alert_title);
+
+            builder.setPositiveButton(R.string.okay, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+
+                        }
+                    });
+
+            AlertDialog dialog = builder.create();
+            dialog.show();
+            new SessionVariables().setDateExpired(false);
+        }
 
         // Create button
         Button btnSetUserGoals = (Button) findViewById(R.id.btnSetGoal);

@@ -143,12 +143,13 @@ public class LoginActivity extends Activity {
                         String nowString = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
                         Date nowDate = format.parse(nowString);
                         Date date = format.parse(GoalSetDate);
-                        dateDifference = 8;//nowDate.compareTo(date);
+                        dateDifference = nowDate.compareTo(date);
                     } catch (ParseException e) {
                         // TODO Auto-generated catch block
                         e.printStackTrace();
                     }
                     if (dateDifference > 7){
+                        new SessionVariables().setDateExpired(true);
                         Intent i = new Intent(getApplicationContext(), SetGoalsActivity.class);
                         startActivity(i);
                     }
