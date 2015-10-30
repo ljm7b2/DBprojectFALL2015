@@ -7,6 +7,7 @@ package com.example.ljm7b.fitness_tracker;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -56,6 +57,8 @@ public class LoginActivity extends Activity {
 
         // Create button
         Button btnLoginUser = (Button) findViewById(R.id.btnLogin);
+        Button btnRegister = (Button) findViewById(R.id.btnRegister);
+
 
         // button click event
         btnLoginUser.setOnClickListener(new View.OnClickListener() {
@@ -75,6 +78,16 @@ public class LoginActivity extends Activity {
                 }
 
                 new RegisterUser().execute(username, password);
+            }
+        });
+        btnRegister.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View view) {
+                // creating new product in background thread
+                Intent i = new Intent(getApplicationContext(), RegistrationActivity.class);
+                startActivity(i);
+                finish();
             }
         });
     }

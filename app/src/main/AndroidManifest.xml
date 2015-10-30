@@ -39,15 +39,15 @@
 
         <activity android:name=".LoginRegisterActivity"
             android:label="Login or Register">
+        </activity>
+
+        <activity android:name=".LoginActivity"
+            android:label="Login User">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
-
-        <activity android:name=".LoginActivity"
-            android:label="Login User">
         </activity>
 
         <activity android:name=".VideoMainActivity"
