@@ -1,9 +1,9 @@
 package com.example.ljm7b.fitness_tracker;
 
 
-import android.app.Activity;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.WindowManager;
@@ -24,7 +24,7 @@ import com.github.mikephil.charting.data.LineDataSet;
 
 import java.util.ArrayList;
 
-public class CombinedChartActivity extends Activity{
+public class CombinedChartActivity extends AppCompatActivity{
 
     private CombinedChart mChart;
     private final int itemcount = 12;
@@ -39,9 +39,9 @@ public class CombinedChartActivity extends Activity{
         super.onCreate(savedInstanceState);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        setContentView(R.layout.activity_combined);
+        setContentView(R.layout.new_main_activity);
 
-        mChart = (CombinedChart) findViewById(R.id.chart1);
+        mChart = (CombinedChart) findViewById(R.id.chart12);
         mChart.setDescription("");
         mChart.setBackgroundColor(Color.WHITE);
         mChart.setDrawGridBackground(false);

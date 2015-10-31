@@ -41,14 +41,19 @@
             android:label="Login or Register">
         </activity>
 
-        <activity android:name=".LoginActivity"
-            android:label="Login User">
+        <activity android:name=".SplashScreen"
+            android:label="Fitness Tracker"
+            android:windowSoftInputMode="stateHidden">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity android:name=".LoginActivity"
+            android:label="Fitness Tracker"
+            android:windowSoftInputMode="stateHidden"/>
 
         <activity android:name=".VideoMainActivity"
             android:stateNotNeeded="true"
