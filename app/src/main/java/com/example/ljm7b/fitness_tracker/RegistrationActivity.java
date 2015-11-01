@@ -24,9 +24,6 @@ import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.text.ParseException;
-import java.util.Date;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -176,10 +173,11 @@ public class RegistrationActivity extends Activity {
                 Log.d("Create Response", json.toString());
             }
             catch(Exception e){
-                Intent i = new Intent(getApplicationContext(), LoginRegisterActivity.class);
+                Log.d("Create Response", json.toString());
+                Intent i = new Intent(getApplicationContext(), LoginActivity.class);
                 startActivity(i);
                 finish();
-                //TODO: ADD MESSAGE TO THE USER ABOUT A FAILURE TO ACCESS DB
+
                 return null;
             }
 
@@ -197,6 +195,10 @@ public class RegistrationActivity extends Activity {
                     finish();
                 } else {
                     // failed to create workout
+
+                    Intent i = new Intent(getApplicationContext(), LoginActivity.class);
+                    startActivity(i);
+                    finish();
                 }
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -212,6 +214,7 @@ public class RegistrationActivity extends Activity {
         protected void onPostExecute(String file_url) {
             // dismiss the dialog once done
             pDialog.dismiss();
+
         }
 
     }

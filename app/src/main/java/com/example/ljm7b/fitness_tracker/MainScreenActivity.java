@@ -13,7 +13,6 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
@@ -37,6 +36,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 public class MainScreenActivity extends AppCompatActivity{
@@ -52,6 +53,7 @@ public class MainScreenActivity extends AppCompatActivity{
 
 
     private CombinedChart mChart;
+    private CombinedChart mChart2;
     private final int itemcount = 12;
 
     private ProgressDialog pDialog;
@@ -60,17 +62,22 @@ public class MainScreenActivity extends AppCompatActivity{
             "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Okt", "Nov", "Dec"
     };
 
+    public String[] dates;
+    public String[] dates2;
 
+    public int numberOfDates = 0;
+
+    JSONObject masterJ = new JSONObject();
     JSONArray workouts = null;
+    JSONArray brains = null;
     JSONArray goals = null;
     JSONParser2 jParser2 = new JSONParser2();
 
     private static final String TAG_SUCCESS = "success";
 
 
-    private static final String url_all_workouts = "http://fall2015db.asuscomm.com/FitnessDB/getWorkoutLog.php";
-    private static final String TAG_WORKOUTS = "all_workouts";
-    private static final String TAG_NAME = "Workout";
+    private static final String url_all_workouts = "http://fall2015db.asuscomm.com/FitnessDB/getCurrentGoalActivities.php";
+    private static final String TAG_WORKOUTS = "data_workouts";
     private static final String TAG_DURATION = "Duration";
     private static final String TAG_TYPE = "Type";
 
@@ -86,8 +93,8 @@ public class MainScreenActivity extends AppCompatActivity{
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 //        setContentView(R.layout.main_screen);
-
-
+        masterJ = new JSONObject();
+        jParser2 = new JSONParser2();
         new GetGoalsAndWorkouts().execute(new SessionVariables().getUserID());
 
         setContentView(R.layout.new_main_activity);
@@ -95,7 +102,7 @@ public class MainScreenActivity extends AppCompatActivity{
         mNavItems.add(new NavItem("Log Brain Activity", "Log Time Getting Smarter", R.drawable.ic_brain));
         mNavItems.add(new NavItem("Log Body Workout", "Log Time Pumping Iron", R.drawable.ic_body));
         mNavItems.add(new NavItem("View Activity Log", "Everything You Did Today", R.drawable.ic_binoculars));
-        mNavItems.add(new NavItem("Video Workouts", "Get Inspired", R.drawable.ic_action_video));
+        mNavItems.add(new NavItem("Video Workouts", "Feel Inspired", R.drawable.ic_action_video));
 
         // DrawerLayout
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
@@ -246,8 +253,13 @@ public class MainScreenActivity extends AppCompatActivity{
             JSONObject c = data.getJSONObject(index);
             try {
                 String body_goal = c.getString("Body_Goal");
-                for(int i = 0; i < 7; ++i)
-                    entries.add(new Entry(Float.valueOf(body_goal), i));
+                if(numberOfDates != 0) {
+                    for (int i = 0; i < numberOfDates; ++i)
+                        entries.add(new Entry(Float.valueOf(body_goal), i));
+                }
+                else{
+                    entries.add(new Entry(Float.valueOf(body_goal), 1));
+                }
             }catch(JSONException e) {
                 e.printStackTrace();
             }
@@ -258,16 +270,18 @@ public class MainScreenActivity extends AppCompatActivity{
             e.printStackTrace();
         }
 
-        LineDataSet set = new LineDataSet(entries, "Line DataSet");
-        set.setColor(Color.rgb(240, 238, 70));
-        set.setLineWidth(2.5f);
-        set.setCircleColor(Color.rgb(240, 238, 70));
+        LineDataSet set = new LineDataSet(entries, "Workout Goal");
+        set.setColor(Color.rgb(255, 102, 255));
+        set.setLineWidth(5.5f);
+        set.setCircleColor(Color.rgb(255, 102, 255));
         set.setCircleSize(5f);
-        set.setFillColor(Color.rgb(240, 238, 70));
+        set.setFillColor(Color.rgb(255, 102, 255));
         set.setDrawCubic(true);
-        set.setDrawValues(true);
+        set.setDrawValues(false);
         set.setValueTextSize(10f);
-        set.setValueTextColor(Color.rgb(240, 238, 70));
+        set.setValueTextColor(Color.rgb(0, 0, 0));
+
+
 
         set.setAxisDependency(YAxis.AxisDependency.LEFT);
 
@@ -276,21 +290,25 @@ public class MainScreenActivity extends AppCompatActivity{
         return d;
     }
 
+
     private BarData generateBarData(JSONArray data) {
 
         BarData d = new BarData();
-
+        numberOfDates = 0;
+        int count = 0;
         ArrayList<BarEntry> entries = new ArrayList<BarEntry>();
         try {
             for (int index = 0; index < data.length(); index++) {
                 JSONObject c = data.getJSONObject(index);
-                String duration = c.getString("Duration");
-                String type = c.getString("Type");
+                String duration = c.getString(TAG_DURATION);
+                String type = c.getString(TAG_TYPE);
 
                 if(type.equals("body")){
                     float f = Float.valueOf(duration);
 
-                    entries.add(new BarEntry(f, index));
+                    entries.add(new BarEntry(f, count));
+                    numberOfDates += 1;
+                    count += 1;
                 }
 
 
@@ -300,10 +318,93 @@ public class MainScreenActivity extends AppCompatActivity{
 
         }
 
-        BarDataSet set = new BarDataSet(entries, "Bar DataSet");
-        set.setColor(Color.rgb(60, 220, 78));
-        set.setValueTextColor(Color.rgb(60, 220, 78));
+        BarDataSet set = new BarDataSet(entries, "Daily Workout Total Hours");
+        set.setColor(Color.rgb(0, 255, 255));
+        set.setValueTextColor(Color.rgb(0, 0, 0));
+        set.setValueTextSize(13f);
+        d.addDataSet(set);
+
+        set.setAxisDependency(YAxis.AxisDependency.LEFT);
+
+        return d;
+    }
+
+    private LineData generateLineData2(JSONArray data) {
+
+        LineData d = new LineData();
+
+        ArrayList<Entry> entries = new ArrayList<Entry>();
+        try {
+            for (int index = 0; index < data.length(); index++) {
+
+                JSONObject c = data.getJSONObject(index);
+                try {
+                    String brain_goal = c.getString("Brain_Goal");
+                    if(numberOfDates != 0) {
+                        for (int i = 0; i < numberOfDates; ++i)
+                            entries.add(new Entry(Float.valueOf(brain_goal), i));
+                    }else{
+                        entries.add(new Entry(Float.valueOf(brain_goal), 1));
+                    }
+                }catch(JSONException e) {
+                    e.printStackTrace();
+                }
+
+
+            }
+        }catch(JSONException e) {
+            e.printStackTrace();
+        }
+
+        LineDataSet set = new LineDataSet(entries, "Brain Goal");
+        set.setColor(Color.rgb(0, 255, 255));
+        set.setLineWidth(5.5f);
+        set.setCircleColor(Color.rgb(0, 255, 255));
+        set.setCircleSize(5f);
+        set.setFillColor(Color.rgb(255, 102, 255));
+        set.setDrawCubic(true);
+        set.setDrawValues(false);
         set.setValueTextSize(10f);
+        set.setValueTextColor(Color.rgb(0, 0, 0));
+
+
+
+        set.setAxisDependency(YAxis.AxisDependency.LEFT);
+
+        d.addDataSet(set);
+
+        return d;
+    }
+
+    private BarData generateBarData2(JSONArray data) {
+
+        BarData d = new BarData();
+        numberOfDates = 0;
+        int count = 0;
+        ArrayList<BarEntry> entries = new ArrayList<BarEntry>();
+        try {
+            for (int index = 0; index < data.length(); index++) {
+                JSONObject c = data.getJSONObject(index);
+                String duration = c.getString(TAG_DURATION);
+                String type = c.getString(TAG_TYPE);
+
+                if(type.equals("brain")){
+                    float f = Float.valueOf(duration);
+
+                    entries.add(new BarEntry(f, count));
+                    numberOfDates += 1;
+                    count += 1;
+                }
+            }
+        }catch(JSONException e) {
+            e.printStackTrace();
+
+        }
+
+        BarDataSet set = new BarDataSet(entries, "Daily Brain Total Hours");
+        set.setColor(Color.rgb(255, 102, 255));
+        set.setValueTextColor(Color.rgb(0, 0, 0));
+        set.setValueTextSize(13f);
         d.addDataSet(set);
 
         set.setAxisDependency(YAxis.AxisDependency.LEFT);
@@ -355,6 +456,8 @@ public class MainScreenActivity extends AppCompatActivity{
 
             JSONObject json = jParser2.makeHttpRequest(url_all_workouts, "GET", params);
 
+            masterJ = json;
+
             JSONObject json2 = jParser2.makeHttpRequest(url_goals, "GET", params);
 
             // Check your log cat for JSON response
@@ -373,8 +476,55 @@ public class MainScreenActivity extends AppCompatActivity{
                     workouts = json.getJSONArray(TAG_WORKOUTS);
                     goals = json2.getJSONArray(TAG_GOAL);
 
+
+
+                    int count2 = 0;
+                    int count3=0;
+                    for(int s = 0; s < workouts.length(); ++s) {
+                        JSONObject c1 = workouts.getJSONObject(s);
+                        if(c1.getString(TAG_TYPE).equals("body"))
+                        {
+                            count2 += 1;
+                        }
+                        else{
+                            count3 += 1;
+                        }
+
+                    }
+
+
+                    dates = new String[count2];
+                    dates2 = new String[count3];
+
+                    int count = 0;
+                    int count4 = 0;
+                    for(int i = 0; i < workouts.length(); ++i){
+                        JSONObject c = workouts.getJSONObject(i);
+                        if(c.getString(TAG_TYPE).equals("body"))
+                            {
+                                String t = c.getString("Date");
+                                dates[count] = t;
+                                count += 1;
+                            }
+                        else{
+                            String t1 = c.getString("Date");
+                            dates2[count4] = t1;
+                            count4 += 1;
+                        }
+                    }
+                    Log.d("length of string",String.valueOf(count) );
+
                 } else {
                     Log.d("error with parsing", "0");
+
+                    dates = new String[1];
+                    dates2 = new String[1];
+                    Date date = Calendar.getInstance().getTime();
+                    dates[0] = date.toString();
+                    dates2[0] = date.toString();
+
+                    goals = json2.getJSONArray(TAG_GOAL);
+
                 }
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -390,26 +540,26 @@ public class MainScreenActivity extends AppCompatActivity{
         @Override
         protected void onPostExecute(String file_url) {
             // dismiss the dialog after getting all workouts
-            try {
-                workouts2 = concatArray(workouts, goals);
-            }catch (JSONException e) {
-                e.printStackTrace();
-
-            }
 
 
-            getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                    WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
+            //getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                    //WindowManager.LayoutParams.FLAG_FULLSCREEN);
             //setContentView(R.layout.new_main_activity);
 
             mChart = (CombinedChart) findViewById(R.id.chart12);
             mChart.setDescription("");
-            mChart.setBackgroundColor(Color.WHITE);
+            //mChart.setDescriptionTextSize(16);
+            //mChart.setDescriptionPosition(0,0);
+            mChart.setBackgroundColor(Color.LTGRAY);
             mChart.setDrawGridBackground(false);
             mChart.setDrawBarShadow(false);
+            mChart.animateY(2000);
+            mChart.setNoDataText("Building Your Chart Soon!");
+
 
             // draw bars behind lines
-            mChart.setDrawOrder(new CombinedChart.DrawOrder[] {
+            mChart.setDrawOrder(new CombinedChart.DrawOrder[]{
                     CombinedChart.DrawOrder.BAR, CombinedChart.DrawOrder.BUBBLE, CombinedChart.DrawOrder.CANDLE, CombinedChart.DrawOrder.LINE, CombinedChart.DrawOrder.SCATTER
             });
 
@@ -422,16 +572,74 @@ public class MainScreenActivity extends AppCompatActivity{
             XAxis xAxis = mChart.getXAxis();
             xAxis.setPosition(XAxis.XAxisPosition.BOTH_SIDED);
 
-            CombinedData data = new CombinedData(mMonths);
+            CombinedData data = new CombinedData(dates);
 
+            int success12 = 0;
+            try {
+                success12 = masterJ.getInt(TAG_SUCCESS);
+            }catch(JSONException e) {
+                e.printStackTrace();
+            }
+            if(success12 != 0) {
+                data.setData(generateBarData(workouts));
+            }
             data.setData(generateLineData(goals));
-            data.setData(generateBarData(workouts));
+
+
+
+
+
+
+            mChart2 = (CombinedChart) findViewById(R.id.chart123);
+            mChart2.setDescription("");
+            //mChart.setDescriptionTextSize(16);
+            //mChart.setDescriptionPosition(0,0);
+            mChart2.setBackgroundColor(Color.LTGRAY);
+            mChart2.setDrawGridBackground(false);
+            mChart2.setDrawBarShadow(false);
+            mChart2.animateY(2000);
+            mChart2.setNoDataText("Building Your Chart Soon!");
+
+
+            // draw bars behind lines
+            mChart2.setDrawOrder(new CombinedChart.DrawOrder[]{
+                    CombinedChart.DrawOrder.BAR, CombinedChart.DrawOrder.BUBBLE, CombinedChart.DrawOrder.CANDLE, CombinedChart.DrawOrder.LINE, CombinedChart.DrawOrder.SCATTER
+            });
+
+            YAxis rightAxis2 = mChart2.getAxisRight();
+            rightAxis2.setDrawGridLines(false);
+
+            YAxis leftAxis2 = mChart2.getAxisLeft();
+            leftAxis2.setDrawGridLines(false);
+
+            XAxis xAxis2 = mChart2.getXAxis();
+            xAxis2.setPosition(XAxis.XAxisPosition.BOTH_SIDED);
+
+
+
+            CombinedData data2 = new CombinedData(dates2);
+            int success1 = 0;
+            try {
+                success1 = masterJ.getInt(TAG_SUCCESS);
+            }catch(JSONException e) {
+                e.printStackTrace();
+            }
+
+            if(success1 != 0) {
+                data2.setData(generateBarData2(workouts));
+            }
+            data2.setData(generateLineData2(goals));
+
 //        data.setData(generateBubbleData());
 //         data.setData(generateScatterData());
 //         data.setData(generateCandleData());
 
             mChart.setData(data);
             mChart.invalidate();
+
+            mChart2.setData(data2);
+            mChart2.invalidate();
+
             pDialog.dismiss();
 
         }
