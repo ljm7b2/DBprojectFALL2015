@@ -503,12 +503,12 @@ public class MainScreenActivity extends AppCompatActivity{
                         if(c.getString(TAG_TYPE).equals("body"))
                             {
                                 String t = c.getString("Date");
-                                dates[count] = t;
+                                dates[count] = t.substring(5);
                                 count += 1;
                             }
                         else{
                             String t1 = c.getString("Date");
-                            dates2[count4] = t1;
+                            dates2[count4] = t1.substring(5);
                             count4 += 1;
                         }
                     }
@@ -570,7 +570,8 @@ public class MainScreenActivity extends AppCompatActivity{
             leftAxis.setDrawGridLines(false);
 
             XAxis xAxis = mChart.getXAxis();
-            xAxis.setPosition(XAxis.XAxisPosition.BOTH_SIDED);
+            xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
+            xAxis.setLabelsToSkip(0);
 
             CombinedData data = new CombinedData(dates);
 
@@ -613,7 +614,8 @@ public class MainScreenActivity extends AppCompatActivity{
             leftAxis2.setDrawGridLines(false);
 
             XAxis xAxis2 = mChart2.getXAxis();
-            xAxis2.setPosition(XAxis.XAxisPosition.BOTH_SIDED);
+            xAxis2.setPosition(XAxis.XAxisPosition.BOTTOM);
+            xAxis2.setLabelsToSkip(0);
 
 
 
