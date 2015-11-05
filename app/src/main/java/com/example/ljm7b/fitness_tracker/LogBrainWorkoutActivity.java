@@ -7,15 +7,18 @@ package com.example.ljm7b.fitness_tracker;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import org.apache.http.NameValuePair;
@@ -170,7 +173,6 @@ public class LogBrainWorkoutActivity extends Activity {
                     // workouts found
                     // Getting Array of workouts
                     workouts = json.getJSONArray(TAG_WORKOUTS);
-
                     // looping through All workouts
                     for (int i = 0; i < workouts.length(); i++) {
                         JSONObject c = workouts.getJSONObject(i);
@@ -223,9 +225,35 @@ public class LogBrainWorkoutActivity extends Activity {
     }
 
     void buildSpinner(List<String> data){
-        spinnerAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, data );
+        spinnerAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, data )
+        {
+            @Override
+            public View getView(int position, View convertView,ViewGroup parent) {
+
+                View v = super.getView(position, convertView, parent);
+
+                ((TextView) v).setGravity(Gravity.CENTER);
+
+                return v;
+
+            }
+
+            @Override
+            public View getDropDownView(int position, View convertView, ViewGroup parent) {
+                View view = super.getDropDownView(position, convertView, parent);
+                ((TextView ) view).setGravity(Gravity.CENTER);
+                if (position % 2 == 0) { // we're on an even row
+                    view.setBackgroundColor(Color.LTGRAY);
+                } else {
+                    view.setBackgroundColor(Color.WHITE);
+                }
+                return view;
+            }
+
+        };
         spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        brainWorkoutSpinner.setAdapter(spinnerAdapter);
+
+        brainWorkoutSpinner.setAdapter(new NothingSelectedSpinnerAdapter(spinnerAdapter, R.layout.spinner_row_nothing_selected, this));
     }
 
 

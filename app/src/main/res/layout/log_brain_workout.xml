@@ -2,47 +2,38 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" >
+    android:orientation="vertical"
+    android:background="@android:color/background_dark">
 
-    <!-- Name Label -->
-    <TextView android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="Workout Name"
-        android:paddingLeft="10dip"
-        android:paddingRight="10dip"
-        android:paddingTop="10dip"
-        android:textSize="17dip"/>
-
-    <!-- Input Name -->
     <Spinner
         android:id="@+id/inputBrainWorkout"
-        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        />
-
-    <!-- Price Label -->
-    <TextView android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="Time spent(in hours)"
-        android:paddingLeft="10dip"
-        android:paddingRight="10dip"
-        android:paddingTop="10dip"
-        android:textSize="17dip"/>
+        android:gravity="center"
+        android:layout_width="250dp"
+        android:layout_gravity="center"
+        android:background="@color/main_pink" />
 
     <!-- Input Price -->
     <EditText android:id="@+id/inputTime"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="250dp"
+        android:layout_height="30dp"
         android:layout_margin="5dip"
         android:layout_marginBottom="15dip"
         android:singleLine="true"
-        android:inputType="numberDecimal"/>
+        android:inputType="numberDecimal"
+        android:background="@color/white"
+        android:gravity="center"
+        android:layout_gravity="center"
+        android:hint="@string/timeHint" />
 
 
     <!-- Button Create Product -->
     <Button android:id="@+id/btnLogBrainWorkout"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="Log brain Workout"/>
+        android:layout_width="250dp"
+        android:layout_height="30dp"
+        android:text="@string/brainLogSubmit"
+        android:background="@color/main_cyan"
+        android:gravity="center"
+        android:layout_gravity="center"/>
 
 </LinearLayout>

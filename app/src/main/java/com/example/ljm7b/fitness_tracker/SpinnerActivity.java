@@ -15,7 +15,12 @@ public class SpinnerActivity extends Activity implements AdapterView.OnItemSelec
                                int pos, long id) {
         // An item was selected. You can retrieve the selected item using
         // parent.getItemAtPosition(pos)
-        Log.d(parent.getItemAtPosition(pos).toString(), "SPINNER INFO");
+        try {
+            Log.d(parent.getItemAtPosition(pos).toString(), "SPINNER INFO");
+        }
+        catch(Exception e){
+
+        }
     }
 
     public void onNothingSelected(AdapterView<?> parent) {
