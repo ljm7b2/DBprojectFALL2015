@@ -7,6 +7,25 @@
         <item>Male</item>
         <item>Female</item>
     </string-array>
+    <string-array name="hours_array">
+        <item>0 hours</item>
+        <item>1 hour</item>
+        <item>2 hours</item>
+        <item>3 hours</item>
+        <item>4 hours</item>
+        <item>5 hours</item>
+        <item>6 hours</item>
+        <item>7 hours</item>
+        <item>8 hours</item>
+        <item>9 hours</item>
+        <item>10 hours</item>
+    </string-array>
+    <string-array name="minutes_array">
+        <item>0 minutes</item>
+        <item>15 minutes</item>
+        <item>30 minutes</item>
+        <item>45 minutes</item>
+    </string-array>
     <string name="drawer_open">Drawer Open</string>
     <string name="drawer_close">Drawer Close</string>
 

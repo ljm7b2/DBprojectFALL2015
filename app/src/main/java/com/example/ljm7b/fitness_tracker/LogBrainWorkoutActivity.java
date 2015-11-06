@@ -38,6 +38,8 @@ public class LogBrainWorkoutActivity extends Activity {
     // Progress Dialog
     private ProgressDialog pDialog;
     private Spinner brainWorkoutSpinner;
+    private Spinner hoursSpinner;
+    private Spinner minutesSpinner;
 
     private static String url_log_brain_workout = "http://fall2015db.asuscomm.com/FitnessDB/logBrainWorkout.php";
 
@@ -45,7 +47,6 @@ public class LogBrainWorkoutActivity extends Activity {
 
     EditText timeSpent;
 
-    private ArrayList<String> brainSpinnerWorkoutList;
 
     // Creating JSON Parser object
     JSONParser2 jParser2 = new JSONParser2();
@@ -61,6 +62,9 @@ public class LogBrainWorkoutActivity extends Activity {
     private static final String TAG_EXERCISE_NAME = "Exercise_Name";
     public static List<String> lables = new ArrayList<String>();
     public static ArrayAdapter<String> spinnerAdapter;
+    public static ArrayAdapter<String> hoursSpinnerAdapter;
+    public static ArrayAdapter<String> minutesSpinnerAdapter;
+
 
     //workouts JSONArray
     JSONArray workouts = null;
@@ -73,7 +77,11 @@ public class LogBrainWorkoutActivity extends Activity {
         // Hashmap for Gender spinner
         workoutsList = new ArrayList<HashMap<String, String>>();
 
-        timeSpent = (EditText) findViewById(R.id.inputTime);
+        //timeSpent = (EditText) findViewById(R.id.inputTime);
+        hoursSpinner = (Spinner) findViewById(R.id.hoursSpinner);
+
+
+        minutesSpinner = (Spinner) findViewById(R.id.minutesSpinner);
 
         // Loading workouts in Background Thread
 
@@ -98,10 +106,22 @@ public class LogBrainWorkoutActivity extends Activity {
                     // creating new product in background thread
                     String userID = new SessionVariables().getUserID();
                     String brainWorkoutName = brainWorkoutSpinner.getSelectedItem().toString();
-                    String workoutTime = timeSpent.getText().toString();
+                    double hours = hoursSpinner.getSelectedItemPosition();
+                    int minutesPos = minutesSpinner.getSelectedItemPosition();
+
+                    if (minutesPos == 1){
+                        hours += .25;
+                    }
+                    else if (minutesPos == 2){
+                        hours += .5;
+                    }
+                    else{
+                        hours += .75;
+                    }
+                    String workoutTime = String.valueOf(hours);
 
 
-                    if (workoutTime.equals("")) {
+                    if (workoutTime.equals("0")) {
                         Toast toast = Toast.makeText(getApplicationContext(), "Please Complete All Data Fields!", Toast.LENGTH_LONG);
                         toast.setGravity(Gravity.TOP | Gravity.CENTER_HORIZONTAL, 0, 100);
                         toast.show();
@@ -233,6 +253,7 @@ public class LogBrainWorkoutActivity extends Activity {
                 View v = super.getView(position, convertView, parent);
 
                 ((TextView) v).setGravity(Gravity.CENTER);
+                ((TextView) v).setTextColor(Color.WHITE);
 
                 return v;
 
@@ -242,18 +263,85 @@ public class LogBrainWorkoutActivity extends Activity {
             public View getDropDownView(int position, View convertView, ViewGroup parent) {
                 View view = super.getDropDownView(position, convertView, parent);
                 ((TextView ) view).setGravity(Gravity.CENTER);
+                ((TextView) view).setTextColor(Color.WHITE);
+                ((TextView) view).setTextSize(20);
                 if (position % 2 == 0) { // we're on an even row
-                    view.setBackgroundColor(Color.LTGRAY);
+                    view.setBackgroundColor(Color.parseColor("#00FFFF"));
                 } else {
-                    view.setBackgroundColor(Color.WHITE);
+                    view.setBackgroundColor(Color.parseColor("#FF66FF"));
                 }
                 return view;
             }
 
         };
-        spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
+        String[] hoursArray = getResources().getStringArray(R.array.hours_array);
+        String[] minutesArray = getResources().getStringArray(R.array.minutes_array);
+        spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         brainWorkoutSpinner.setAdapter(new NothingSelectedSpinnerAdapter(spinnerAdapter, R.layout.spinner_row_nothing_selected, this));
+
+        hoursSpinnerAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, hoursArray )
+        {
+            @Override
+            public View getView(int position, View convertView,ViewGroup parent) {
+
+                View v = super.getView(position, convertView, parent);
+
+                ((TextView) v).setGravity(Gravity.CENTER);
+                ((TextView) v).setTextColor(Color.BLACK);
+
+                return v;
+
+            }
+
+            @Override
+            public View getDropDownView(int position, View convertView, ViewGroup parent) {
+                View view = super.getDropDownView(position, convertView, parent);
+                ((TextView ) view).setGravity(Gravity.CENTER);
+                ((TextView) view).setTextColor(Color.BLACK);
+                ((TextView) view).setTextSize(20);
+                if (position % 2 == 0) { // we're on an even row
+                    view.setBackgroundColor(Color.WHITE);
+                } else {
+                    view.setBackgroundColor(Color.LTGRAY);
+                }
+                return view;
+            }
+
+        };
+        hoursSpinner.setAdapter(hoursSpinnerAdapter);
+
+        minutesSpinnerAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, minutesArray )
+        {
+            @Override
+            public View getView(int position, View convertView,ViewGroup parent) {
+
+                View v = super.getView(position, convertView, parent);
+
+                ((TextView) v).setGravity(Gravity.CENTER);
+                ((TextView) v).setTextColor(Color.BLACK);
+
+                return v;
+
+            }
+
+            @Override
+            public View getDropDownView(int position, View convertView, ViewGroup parent) {
+                View view = super.getDropDownView(position, convertView, parent);
+                ((TextView ) view).setGravity(Gravity.CENTER);
+                ((TextView) view).setTextColor(Color.BLACK);
+                ((TextView) view).setTextSize(20);
+                if (position % 2 == 0) { // we're on an even row
+                    view.setBackgroundColor(Color.WHITE);
+                } else {
+                    view.setBackgroundColor(Color.LTGRAY);
+                }
+                return view;
+            }
+
+        };
+        minutesSpinner.setAdapter(minutesSpinnerAdapter);
+
     }
 
 

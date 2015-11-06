@@ -3,7 +3,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@android:color/background_dark">
+    android:background="@android:color/background_dark"
+    android:weightSum="1">
 
     <Spinner
         android:id="@+id/inputBrainWorkout"
@@ -13,7 +14,7 @@
         android:layout_gravity="center"
         android:background="@color/main_pink" />
 
-    <!-- Input Price -->
+    <!-- Input Price
     <EditText android:id="@+id/inputTime"
         android:layout_width="250dp"
         android:layout_height="30dp"
@@ -24,7 +25,29 @@
         android:background="@color/white"
         android:gravity="center"
         android:layout_gravity="center"
-        android:hint="@string/timeHint" />
+        android:hint="@string/timeHint" />-->
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="1"
+        android:layout_gravity="center">
+
+        <Spinner
+            android:id="@+id/hoursSpinner"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight=".5"
+            android:background="@color/white"/>
+
+        <Spinner
+            android:id="@+id/minutesSpinner"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight=".5"
+            android:background="@color/white"/>
+
+    </LinearLayout>
 
 
     <!-- Button Create Product -->
@@ -35,5 +58,6 @@
         android:background="@color/main_cyan"
         android:gravity="center"
         android:layout_gravity="center"/>
+
 
 </LinearLayout>
