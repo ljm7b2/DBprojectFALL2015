@@ -1,48 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical" >
-
-    <!-- Name Label -->
-    <TextView android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="Workout Name"
-        android:paddingLeft="10dip"
-        android:paddingRight="10dip"
-        android:paddingTop="10dip"
-        android:textSize="17dip"/>
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical"
+    android:background="@color/black">
 
     <!-- Input Name -->
     <Spinner
         android:id="@+id/inputBodyWorkout"
-        android:layout_width="fill_parent"
+        android:layout_width="250dp"
         android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_gravity="center"
+        android:background="@color/main_pink"
         />
 
-    <!-- Price Label -->
-    <TextView android:layout_width="fill_parent"
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="250dp"
         android:layout_height="wrap_content"
-        android:text="Time spent(in hours)"
-        android:paddingLeft="10dip"
-        android:paddingRight="10dip"
-        android:paddingTop="10dip"
-        android:textSize="17dip"/>
+        android:orientation="horizontal"
+        android:weightSum="1"
+        android:layout_gravity="center">
 
-    <!-- Input Price -->
-    <EditText android:id="@+id/inputTime2"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="5dip"
-        android:layout_marginBottom="15dip"
-        android:singleLine="true"
-        android:inputType="numberDecimal"/>
+        <Spinner
+            android:id="@+id/hoursSpinner"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight=".5"
+            android:background="@color/white"/>
+
+        <Spinner
+            android:id="@+id/minutesSpinner"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight=".5"
+            android:background="@color/white"/>
+    </LinearLayout>
 
 
     <!-- Button Create Product -->
     <Button android:id="@+id/btnLogBodyWorkout"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="Log Body Workout"/>
+        android:layout_width="250dp"
+        android:layout_height="30dp"
+        android:text="Log Body Workout"
+        android:background="@color/main_cyan"
+        android:gravity="center"
+        android:layout_gravity="center"/>
 
 </LinearLayout>
