@@ -24,12 +24,14 @@
         <EditText android:id="@+id/inputFirstName"
             android:layout_width="250dp"
             android:layout_gravity="center"
-            android:layout_height="wrap_content"
+            android:layout_height="35dp"
             android:layout_margin="5dip"
             android:layout_marginBottom="15dip"
             android:singleLine="true"
             android:background="@color/main_cyan"
-            android:textColor="@color/main_pink"/>
+            android:textColor="@color/main_pink"
+            android:textCursorDrawable="@drawable/color_cursor"
+            android:textStyle="bold" />
 
         <!-- Price Label -->
         <TextView android:layout_width="250dp"
@@ -46,12 +48,13 @@
         <EditText android:id="@+id/inputLastName"
             android:layout_width="250dp"
             android:layout_gravity="center"
-            android:layout_height="wrap_content"
+            android:layout_height="35dp"
             android:layout_margin="5dip"
             android:layout_marginBottom="15dip"
             android:singleLine="true"
             android:background="@color/main_cyan"
-            android:textColor="@color/main_pink"/>
+            android:textColor="@color/main_pink"
+            android:textCursorDrawable="@drawable/color_cursor"/>
 
         <!-- Description Label -->
         <TextView android:layout_width="250dp"
@@ -68,12 +71,13 @@
         <EditText android:id="@+id/inputUsername"
             android:layout_width="250dp"
             android:layout_gravity="center"
-            android:layout_height="wrap_content"
+            android:layout_height="35dp"
             android:layout_margin="5dip"
             android:layout_marginBottom="15dip"
             android:singleLine="true"
             android:background="@color/main_cyan"
-            android:textColor="@color/main_pink"/>
+            android:textColor="@color/main_pink"
+            android:textCursorDrawable="@drawable/color_cursor"/>
 
         <!-- Button Create Product -->
         <TextView
@@ -91,13 +95,14 @@
             android:id="@+id/inputPassword"
             android:layout_width="250dp"
             android:layout_gravity="center"
-            android:layout_height="wrap_content"
+            android:layout_height="35dp"
             android:layout_margin="5dip"
             android:layout_marginBottom="15dip"
             android:singleLine="true"
             android:inputType="textPassword"
             android:background="@color/main_cyan"
-            android:textColor="@color/main_pink"/>
+            android:textColor="@color/main_pink"
+            android:textCursorDrawable="@drawable/color_cursor"/>
 
         <TextView
             android:layout_width="250dp"
@@ -108,20 +113,22 @@
             android:paddingRight="10dip"
             android:paddingTop="10dip"
             android:textSize="17dip"
-            android:textColor="@color/white"/>
+            android:textColor="@color/white"
+            />
 
 
         <EditText
             android:id="@+id/inputHeight"
             android:layout_width="250dp"
             android:layout_gravity="center"
-            android:layout_height="wrap_content"
+            android:layout_height="35dp"
             android:layout_margin="5dip"
             android:layout_marginBottom="15dip"
             android:singleLine="true"
             android:inputType="number"
             android:background="@color/main_cyan"
-            android:textColor="@color/main_pink"/>
+            android:textColor="@color/main_pink"
+            android:textCursorDrawable="@drawable/color_cursor"/>
 
         <TextView
             android:layout_width="250dp"
@@ -138,13 +145,14 @@
             android:id="@+id/inputWeight"
             android:layout_width="250dp"
             android:layout_gravity="center"
-            android:layout_height="wrap_content"
+            android:layout_height="35dp"
             android:layout_margin="5dip"
             android:layout_marginBottom="15dip"
             android:singleLine="true"
             android:inputType="number"
             android:background="@color/main_cyan"
-            android:textColor="@color/main_pink"/>
+            android:textColor="@color/main_pink"
+            android:textCursorDrawable="@drawable/color_cursor"/>
 
         <TextView
             android:layout_width="250dp"
@@ -167,24 +175,25 @@
             <Spinner
                 android:id="@+id/monthsSpinner"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="65dp"
                 android:layout_weight=".4"
                 android:background="@color/white"
-                />
+                android:layout_marginRight="5dp" />
 
             <Spinner
             android:id="@+id/daySpinner"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="65dp"
             android:layout_weight=".2"
             android:background="@color/white"/>
 
             <Spinner
                 android:id="@+id/yearSpinner"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="65dp"
                 android:layout_weight=".4"
-                android:background="@color/white"/>
+                android:background="@color/white"
+                android:layout_marginLeft="5dp" />
 
         </LinearLayout>
 
@@ -203,7 +212,7 @@
             android:id="@+id/inputGender"
             android:layout_width="250dp"
             android:layout_gravity="center"
-            android:layout_height="wrap_content"
+            android:layout_height="65dp"
             android:prompt="@string/selectGender"
             android:background="@color/white"/>
 
@@ -211,11 +220,11 @@
         <Button android:id="@+id/btnRegister"
             android:layout_width="250dp"
             android:layout_gravity="center"
-            android:layout_height="wrap_content"
+            android:layout_height="70dp"
             android:text="Register"
             android:textColor="@color/white"
             android:background="@color/main_pink"
-            />
+            android:layout_marginTop="15dp" />
 
     </LinearLayout>
 </ScrollView>

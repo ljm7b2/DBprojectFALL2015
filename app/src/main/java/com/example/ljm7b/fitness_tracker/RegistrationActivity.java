@@ -17,7 +17,6 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -53,6 +52,7 @@ public class RegistrationActivity extends Activity {
     EditText inputPassword;
     EditText inputWeight;
     EditText inputHeight;
+    public static int didFail = 0;
 
 
     // url to create new product
@@ -194,10 +194,13 @@ public class RegistrationActivity extends Activity {
                 Log.d("Create Response", json.toString());
             }
             catch(Exception e){
-                Log.d("Create Response", json.toString());
-                Intent i = new Intent(getApplicationContext(), LoginActivity.class);
+                //Log.d("Create Response", json.toString());
+                didFail = 1;
+                Intent i = new Intent(getApplicationContext(), RegistrationActivity.class);
                 startActivity(i);
                 finish();
+
+
 
                 return null;
             }
@@ -218,6 +221,7 @@ public class RegistrationActivity extends Activity {
                     // failed to create workout
 
                     Intent i = new Intent(getApplicationContext(), LoginActivity.class);
+
                     startActivity(i);
                     finish();
                 }
@@ -236,6 +240,12 @@ public class RegistrationActivity extends Activity {
             // dismiss the dialog once done
 
             pDialog.dismiss();
+
+            if(didFail == 1){
+                Toast toast = Toast.makeText(getApplicationContext(), "Username Not Available!", Toast.LENGTH_LONG);
+                toast.setGravity(Gravity.TOP | Gravity.CENTER_HORIZONTAL, 0, 100);
+                toast.show();
+            }
 
         }
     }
