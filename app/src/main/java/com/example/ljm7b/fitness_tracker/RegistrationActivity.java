@@ -7,16 +7,20 @@ package com.example.ljm7b.fitness_tracker;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import org.apache.http.NameValuePair;
@@ -25,6 +29,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.List;
 
 public class RegistrationActivity extends Activity {
@@ -32,8 +38,14 @@ public class RegistrationActivity extends Activity {
     // Progress Dialog
     private ProgressDialog pDialog;
     private Spinner genderSpinner;
-    private DatePicker dobPicker;
-    private String dateDelimeter = "-";
+    private Spinner monthSpinner;
+    private Spinner daySpinner;
+    private Spinner yearSpinner;
+    private int[] Thirty = {3, 5, 8, 10};
+    private List<String> daysList;
+    public static ArrayAdapter<String> monthsSpinnerAdapter;
+    public static ArrayAdapter<String> daySpinnerAdapter;
+    public static ArrayAdapter<String> yearSpinnerAdapter;
     JSONParser2 jsonParser2 = new JSONParser2();
     EditText inputFirstName;
     EditText inputLastName;
@@ -60,8 +72,14 @@ public class RegistrationActivity extends Activity {
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         genderSpinner.setAdapter(adapter);
         AddSpinnerListener();
+        String[] daysArray = getResources().getStringArray(R.array.days);
+        daysList = new LinkedList<String>(Arrays.asList(daysArray));
 
-        dobPicker = (DatePicker) findViewById(R.id.inputDOB);
+        monthSpinner = (Spinner) findViewById(R.id.monthsSpinner);
+        daySpinner = (Spinner) findViewById(R.id.daySpinner);
+        yearSpinner = (Spinner) findViewById(R.id.yearSpinner);
+
+        buildSpinner();
 
         // Edit Text
         inputFirstName = (EditText) findViewById(R.id.inputFirstName);
@@ -89,7 +107,10 @@ public class RegistrationActivity extends Activity {
                 String weight = inputWeight.getText().toString();
                 String height = inputHeight.getText().toString();
                 String sex = genderSpinner.getSelectedItem().toString();
-                String DOB = String.valueOf(dobPicker.getYear()) + dateDelimeter + String.valueOf(checkDigit(dobPicker.getMonth())) + dateDelimeter + String.valueOf(checkDigit(dobPicker.getDayOfMonth()));
+                String year = yearSpinner.getSelectedItem().toString();
+                String day = daySpinner.getSelectedItem().toString();
+                int month = monthSpinner.getSelectedItemPosition() + 1;
+                String DOB = year + "-" + String.valueOf(month) + "-" + day;
 
 
                 if (nameFirst.equals("") || nameLast.equals("") || username.equals("") || password.equals("")) {
@@ -213,9 +234,166 @@ public class RegistrationActivity extends Activity {
         @Override
         protected void onPostExecute(String file_url) {
             // dismiss the dialog once done
+
             pDialog.dismiss();
 
         }
+    }
+
+
+    void buildSpinner(){
+        String[] monthsArray = getResources().getStringArray(R.array.months);
+        monthsSpinnerAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, monthsArray )
+        {
+            @Override
+            public View getView(int position, View convertView,ViewGroup parent) {
+
+                View v = super.getView(position, convertView, parent);
+
+                ((TextView) v).setGravity(Gravity.CENTER);
+                ((TextView) v).setTextColor(Color.BLACK);
+
+                return v;
+
+            }
+
+            @Override
+            public View getDropDownView(int position, View convertView, ViewGroup parent) {
+                View view = super.getDropDownView(position, convertView, parent);
+                ((TextView ) view).setGravity(Gravity.CENTER);
+                ((TextView) view).setTextColor(Color.WHITE);
+                ((TextView) view).setTextSize(20);
+                if (position % 2 == 0) { // we're on an even row
+                    view.setBackgroundColor(Color.parseColor("#00FFFF"));
+                } else {
+                    view.setBackgroundColor(Color.parseColor("#FF66FF"));
+                }
+                return view;
+            }
+
+        };
+        monthSpinner.setAdapter(monthsSpinnerAdapter);
+        monthSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
+                String[] daysArray = getResources().getStringArray(R.array.days);
+                daysList = new LinkedList<String>(Arrays.asList(daysArray));
+                if(position == 1){
+                    daysList.remove(30);
+                    daysList.remove(29);
+                }
+                else if(Arrays.binarySearch(Thirty,position) > 0){
+                    daysList.remove(30);
+                }
+                buildDaysSpinner(daysList);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parentView) {
+                // your code here
+            }
+
+        });
+
+
+        daySpinnerAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, daysList )
+        {
+            @Override
+            public View getView(int position, View convertView,ViewGroup parent) {
+
+                View v = super.getView(position, convertView, parent);
+
+                ((TextView) v).setGravity(Gravity.CENTER);
+                ((TextView) v).setTextColor(Color.BLACK);
+
+                return v;
+
+            }
+
+            @Override
+            public View getDropDownView(int position, View convertView, ViewGroup parent) {
+                View view = super.getDropDownView(position, convertView, parent);
+                ((TextView ) view).setGravity(Gravity.CENTER);
+                ((TextView) view).setTextColor(Color.WHITE);
+                ((TextView) view).setTextSize(20);
+                if (position % 2 == 0) { // we're on an even row
+                    view.setBackgroundColor(Color.parseColor("#00FFFF"));
+                } else {
+                    view.setBackgroundColor(Color.parseColor("#FF66FF"));
+                }
+                return view;
+            }
+
+        };
+        daySpinner.setAdapter(daySpinnerAdapter);
+
+        String[] yearsArray = getResources().getStringArray(R.array.years_array);
+        yearSpinnerAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, yearsArray )
+        {
+            @Override
+            public View getView(int position, View convertView,ViewGroup parent) {
+
+                View v = super.getView(position, convertView, parent);
+
+                ((TextView) v).setGravity(Gravity.CENTER);
+                ((TextView) v).setTextColor(Color.BLACK);
+
+                return v;
+
+            }
+
+            @Override
+            public View getDropDownView(int position, View convertView, ViewGroup parent) {
+                View view = super.getDropDownView(position, convertView, parent);
+                ((TextView ) view).setGravity(Gravity.CENTER);
+                ((TextView) view).setTextColor(Color.WHITE);
+                ((TextView) view).setTextSize(20);
+                if (position % 2 == 0) { // we're on an even row
+                    view.setBackgroundColor(Color.parseColor("#00FFFF"));
+                } else {
+                    view.setBackgroundColor(Color.parseColor("#FF66FF"));
+                }
+                return view;
+            }
+
+        };
+        yearSpinner.setAdapter(yearSpinnerAdapter);
+
+
+    }
+
+    void buildDaysSpinner(List<String> daysArray){
+        //String[] daysArray = getResources().getStringArray(R.array.days);
+        daySpinnerAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, daysArray )
+        {
+            @Override
+            public View getView(int position, View convertView,ViewGroup parent) {
+
+                View v = super.getView(position, convertView, parent);
+
+                ((TextView) v).setGravity(Gravity.CENTER);
+                ((TextView) v).setTextColor(Color.BLACK);
+
+                return v;
+
+            }
+
+            @Override
+            public View getDropDownView(int position, View convertView, ViewGroup parent) {
+                View view = super.getDropDownView(position, convertView, parent);
+                ((TextView ) view).setGravity(Gravity.CENTER);
+                ((TextView) view).setTextColor(Color.WHITE);
+                ((TextView) view).setTextSize(20);
+                if (position % 2 == 0) { // we're on an even row
+                    view.setBackgroundColor(Color.parseColor("#00FFFF"));
+                } else {
+                    view.setBackgroundColor(Color.parseColor("#FF66FF"));
+                }
+                return view;
+            }
+
+        };
+        daySpinner.setAdapter(daySpinnerAdapter);
 
     }
 }
