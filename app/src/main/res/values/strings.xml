@@ -50,6 +50,8 @@
     <string name="timeHint">Time spent(hours)</string>
     <string name="brainLogSubmit">Log brain Workout</string>
     <string name="emptySpinner">[Select a Workout]</string>
+    <string name="emptyBrainGoalSpinner">[Set Brain Goal(Hours)]</string>
+    <string name="emptyBodyGoalSpinner">[Set Body Goal(Hours)]</string>
     <string-array name="months">
         <item>January</item>
         <item>February</item>

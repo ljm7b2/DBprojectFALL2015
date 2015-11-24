@@ -2,51 +2,40 @@
 <ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent">
+    android:layout_height="fill_parent"
+    android:background="@color/black">
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical" >
+        android:orientation="vertical"
+        android:background="@color/black">
 
-        <!-- Name Label -->
-        <TextView android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:text="Brain Goal (Points)"
-            android:paddingLeft="10dip"
-            android:paddingRight="10dip"
-            android:paddingTop="10dip"
-            android:textSize="17dip"/>
 
         <!-- Input Name -->
-        <EditText android:id="@+id/inputBrainGoal"
-            android:layout_width="fill_parent"
+        <Spinner
+            android:id="@+id/inputBrainGoal"
             android:layout_height="wrap_content"
-            android:layout_margin="5dip"
-            android:layout_marginBottom="15dip"
-            android:singleLine="true"
-            android:inputType="number"/>
+            android:gravity="center"
+            android:layout_width="250dp"
+            android:layout_gravity="center"
+            android:background="@color/main_pink" />
 
-        <!-- Price Label -->
-        <TextView android:layout_width="fill_parent"
+        <Spinner
+            android:id="@+id/inputBodyGoal"
             android:layout_height="wrap_content"
-            android:text="Body Goal(Calories)"
-            android:paddingLeft="10dip"
-            android:paddingRight="10dip"
-            android:paddingTop="10dip"
-            android:textSize="17dip"/>
-
-        <EditText android:id="@+id/inputBodyGoal"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="5dip"
-            android:layout_marginBottom="15dip"
-            android:singleLine="true"
-            android:inputType="number"/>
+            android:gravity="center"
+            android:layout_width="250dp"
+            android:layout_gravity="center"
+            android:background="@color/main_pink" />
 
         <Button android:id="@+id/btnSetGoal"
-            android:layout_width="fill_parent"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:layout_width="250dp"
             android:layout_height="wrap_content"
-            android:text="Set Goals!"/>
+            android:text="Set Goals!"
+            android:background="@color/main_cyan"
+            android:textColor="@color/white"/>
 
     </LinearLayout>
 </ScrollView>
