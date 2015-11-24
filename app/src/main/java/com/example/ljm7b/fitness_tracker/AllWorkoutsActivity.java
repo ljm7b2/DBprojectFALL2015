@@ -10,6 +10,7 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
@@ -57,7 +58,7 @@ public class AllWorkoutsActivity extends ListActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.all_workouts);
-
+        getActionBar().setDisplayHomeAsUpEnabled(true);
         // Hashmap for ListView
         workoutsList = new ArrayList<HashMap<String, String>>();
         bodyList = new ArrayList<HashMap<String, String>>();
@@ -68,6 +69,13 @@ public class AllWorkoutsActivity extends ListActivity {
         // Get listview
         ListView lv = getListView();
 
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem menuItem)
+    {
+        onBackPressed();
+        return true;
     }
 
     /**

@@ -8,11 +8,12 @@
 
     <Spinner
         android:id="@+id/inputBrainWorkout"
-        android:layout_height="wrap_content"
+        android:layout_height="68dp"
         android:gravity="center"
         android:layout_width="250dp"
         android:layout_gravity="center"
-        android:background="@color/main_pink" />
+        android:background="@color/main_pink"
+        android:layout_marginTop="20dp" />
     
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="250dp"
@@ -24,16 +25,18 @@
         <Spinner
             android:id="@+id/hoursSpinner"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="68dp"
             android:layout_weight=".5"
-            android:background="@color/white"/>
+            android:background="@color/white"
+            android:layout_marginTop="15dp" />
 
         <Spinner
             android:id="@+id/minutesSpinner"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="68dp"
             android:layout_weight=".5"
-            android:background="@color/white"/>
+            android:background="@color/white"
+            android:layout_marginTop="15dp" />
 
     </LinearLayout>
 
@@ -41,11 +44,13 @@
     <!-- Button Create Product -->
     <Button android:id="@+id/btnLogBrainWorkout"
         android:layout_width="250dp"
-        android:layout_height="30dp"
+        android:layout_height="68dp"
         android:text="@string/brainLogSubmit"
         android:background="@color/main_cyan"
         android:gravity="center"
-        android:layout_gravity="center"/>
+        android:layout_gravity="center"
+        android:layout_marginTop="15dp"
+        android:clickable="true" />
 
 
 </LinearLayout>

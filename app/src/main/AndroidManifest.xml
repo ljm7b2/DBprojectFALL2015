@@ -13,19 +13,19 @@
 
         <activity
             android:name=".MainScreenActivity"
-            android:label="@string/app_name"
+            android:label="Fitness Tracker"
             android:launchMode="singleTop">
 
         </activity>
         <!-- All Product Activity -->
         <activity
             android:name=".LogBrainWorkoutActivity"
-            android:label="All Workouts" >
+            android:label="Add Brain Workout" >
         </activity>
 
         <activity
             android:name=".LogBodyWorkoutActivity"
-            android:label="All Workouts" >
+            android:label="Add Body Workout" >
         </activity>
         <!-- Add Product Activity -->
         <activity
@@ -68,7 +68,8 @@
             android:screenOrientation="portrait"
             android:stateNotNeeded="true"/>
 
-        <activity android:name=".AllWorkoutsActivity"/>
+        <activity android:name=".AllWorkoutsActivity"
+            android:theme="@android:style/Theme.Holo.Light.DarkActionBar"/>
 
         <activity android:name=".CombinedChartActivity"/>
 

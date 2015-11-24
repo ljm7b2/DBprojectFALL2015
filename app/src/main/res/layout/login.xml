@@ -10,7 +10,8 @@
         android:orientation="vertical"
         android:layout_gravity="center"
         android:gravity="center"
-        android:background="@drawable/backrepeat">
+        android:background="@drawable/backrepeat"
+        android:weightSum="1">
 
         <!-- Input description -->
         <EditText android:id="@+id/inputUsername"
@@ -23,7 +24,8 @@
             android:layout_marginBottom="15dip"
             android:singleLine="true"
             android:background="@drawable/edit_text_bottom_border"
-            android:hint="Username" />
+            android:hint="Username"
+            android:layout_weight="0.03" />
 
         <EditText
             android:id="@+id/inputPassword"
@@ -36,7 +38,9 @@
             android:singleLine="true"
             android:inputType="textPassword"
             android:hint="Password"
-            android:background="#ffffff" />
+            android:background="#ffffff"
+            android:layout_weight="0.03"
+            android:layout_marginTop="5dp" />
 
         <Button android:id="@+id/btnLogin"
             android:layout_height="30dp"
@@ -45,17 +49,20 @@
             android:layout_gravity="center"
             android:text="Login"
             android:background="#FF66FF"
-            android:textColor="#ffffff">
+            android:textColor="#ffffff"
+            android:clickable="true"
+            android:layout_weight=".03">
 
         </Button>
         <Button android:id="@+id/btnRegister"
             android:layout_height="30dp"
             android:layout_width="250dp"
-            android:layout_marginTop="0dp"
-            android:layout_gravity="center"
+            android:layout_marginTop="5dp"
             android:text="Register"
             android:background="#00FFFF"
-            android:textColor="#ffffff">
+            android:textColor="#ffffff"
+            android:clickable="true"
+            android:layout_weight=".03">
 
         </Button>
     </LinearLayout>

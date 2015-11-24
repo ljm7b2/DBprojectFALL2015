@@ -99,6 +99,7 @@ public class MainScreenActivity extends AppCompatActivity{
 
         setContentView(R.layout.new_main_activity);
 
+
         mNavItems.add(new NavItem("Log Brain Activity", "Log Time Getting Smarter", R.drawable.ic_brain));
         mNavItems.add(new NavItem("Log Body Workout", "Log Time Pumping Iron", R.drawable.ic_body));
         mNavItems.add(new NavItem("View Activity Log", "Everything You Did Today", R.drawable.ic_binoculars));

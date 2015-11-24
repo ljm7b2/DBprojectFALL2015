@@ -4,14 +4,15 @@ package com.example.ljm7b.fitness_tracker;
  * Created by ljm7b on 10/10/2015.
  */
 
-import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Gravity;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
@@ -33,7 +34,7 @@ import java.util.List;
 
 
 
-public class LogBodyWorkoutActivity extends Activity {
+public class LogBodyWorkoutActivity extends AppCompatActivity {
 
     // Progress Dialog
     private ProgressDialog pDialog;
@@ -73,7 +74,7 @@ public class LogBodyWorkoutActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.log_body_workout);
-
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         // Hashmap for Gender spinner
         workoutsList = new ArrayList<HashMap<String, String>>();
 
@@ -140,6 +141,12 @@ public class LogBodyWorkoutActivity extends Activity {
         });
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem menuItem)
+    {
+        onBackPressed();
+        return true;
+    }
 
     // Response from Edit Product Activity
     @Override

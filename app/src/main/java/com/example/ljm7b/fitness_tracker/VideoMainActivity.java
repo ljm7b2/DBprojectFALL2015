@@ -2,6 +2,7 @@ package com.example.ljm7b.fitness_tracker;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.MenuItem;
 
 import com.google.android.youtube.player.YouTubeApiServiceUtil;
 import com.google.android.youtube.player.YouTubeInitializationResult;
@@ -20,7 +21,7 @@ public class VideoMainActivity extends AppCompatActivity {
         setContentView(R.layout.video_main);
 //
 //        final Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-//        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
 
         //Check for any issues
@@ -37,6 +38,13 @@ public class VideoMainActivity extends AppCompatActivity {
         super.onPause();
         finish();
 
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem menuItem)
+    {
+        onBackPressed();
+        return true;
     }
 
 }
