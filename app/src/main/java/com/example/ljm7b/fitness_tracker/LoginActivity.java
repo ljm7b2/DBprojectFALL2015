@@ -22,6 +22,7 @@ import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.Calendar;
 import java.util.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -151,12 +152,14 @@ public class LoginActivity extends Activity {
                     Global.setUserID(json.getString(TAG_USERID));
                     String GoalSetDate = json.getString(TAG_GOAL_SET_DATE);
                     SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-                    int dateDifference = 0;
+                    long dateDifference = 0;
                     try {
                         String nowString = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
-                        Date nowDate = format.parse(nowString);
-                        Date date = format.parse(GoalSetDate);
-                        dateDifference = nowDate.compareTo(date);
+                        Calendar nowDate = Calendar.getInstance();
+                        Calendar date = Calendar.getInstance();
+                        nowDate.setTime(format.parse(nowString));
+                        date.setTime(format.parse(GoalSetDate));
+                        dateDifference = (nowDate.getTimeInMillis() - date.getTimeInMillis())/1000/60/60/24;
                     } catch (ParseException e) {
                         // TODO Auto-generated catch block
                         e.printStackTrace();
