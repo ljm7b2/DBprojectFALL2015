@@ -9,16 +9,19 @@ import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import org.apache.http.NameValuePair;
@@ -33,6 +36,10 @@ public class SetGoalsActivity extends Activity {
 
     // Progress Dialog
     private ProgressDialog pDialog;
+    private Spinner brainGoalSpinner;
+    private Spinner bodyGoalSpinner;
+    public static ArrayAdapter<String> brainGoalSpinnerAdapter;
+    public static ArrayAdapter<String> bodyGoalSpinnerAdapter;
     JSONParser2 jsonParser2 = new JSONParser2();
     EditText inputBrainGoal;
     EditText inputBodyGoal;
@@ -48,9 +55,9 @@ public class SetGoalsActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.set_goals);
 
-        // Edit Text
-        inputBrainGoal = (EditText) findViewById(R.id.inputBrainGoal);
-        inputBodyGoal = (EditText) findViewById(R.id.inputBodyGoal);
+        //timeSpent = (EditText) findViewById(R.id.inputTime);
+        brainGoalSpinner = (Spinner) findViewById(R.id.inputBrainGoal);
+        bodyGoalSpinner = (Spinner) findViewById(R.id.inputBodyGoal);
 
         if (new SessionVariables().isDateExpired()){
 
@@ -74,6 +81,8 @@ public class SetGoalsActivity extends Activity {
         // Create button
         Button btnSetUserGoals = (Button) findViewById(R.id.btnSetGoal);
 
+        buildSpinner();
+
         // button click event
         btnSetUserGoals.setOnClickListener(new View.OnClickListener() {
 
@@ -81,8 +90,8 @@ public class SetGoalsActivity extends Activity {
             public void onClick(View view) {
                 // creating new product in background thread
 
-                String brainGaol = inputBrainGoal.getText().toString();
-                String bodyGoal = inputBodyGoal.getText().toString();
+                String brainGaol = brainGoalSpinner.getSelectedItem().toString();
+                String bodyGoal = bodyGoalSpinner.getSelectedItem().toString();
 
                 if (brainGaol.equals("") || bodyGoal.equals("")) {
                     Toast toast = Toast.makeText(getApplicationContext(), "Please Complete All Data Fields!", Toast.LENGTH_LONG);
@@ -179,7 +188,75 @@ public class SetGoalsActivity extends Activity {
         protected void onPostExecute(String file_url) {
             // dismiss the dialog once done
             pDialog.dismiss();
+
         }
+
+    }
+
+    void buildSpinner(){
+        String[] hoursArray = getResources().getStringArray(R.array.hours_array);
+
+        brainGoalSpinnerAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, hoursArray )
+        {
+            @Override
+            public View getView(int position, View convertView,ViewGroup parent) {
+
+                View v = super.getView(position, convertView, parent);
+
+                ((TextView) v).setGravity(Gravity.CENTER);
+                ((TextView) v).setTextColor(Color.WHITE);
+
+                return v;
+
+            }
+
+            @Override
+            public View getDropDownView(int position, View convertView, ViewGroup parent) {
+                View view = super.getDropDownView(position, convertView, parent);
+                ((TextView ) view).setGravity(Gravity.CENTER);
+                ((TextView) view).setTextColor(Color.BLACK);
+                ((TextView) view).setTextSize(20);
+                if (position % 2 == 0) { // we're on an even row
+                    view.setBackgroundColor(Color.WHITE);
+                } else {
+                    view.setBackgroundColor(Color.LTGRAY);
+                }
+                return view;
+            }
+
+        };
+        brainGoalSpinner.setAdapter(new NothingSelectedSpinnerAdapter(brainGoalSpinnerAdapter, R.layout.brain_goal_nothing_selected, this));
+
+        bodyGoalSpinnerAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, hoursArray )
+        {
+            @Override
+            public View getView(int position, View convertView,ViewGroup parent) {
+
+                View v = super.getView(position, convertView, parent);
+
+                ((TextView) v).setGravity(Gravity.CENTER);
+                ((TextView) v).setTextColor(Color.WHITE);
+
+                return v;
+
+            }
+
+            @Override
+            public View getDropDownView(int position, View convertView, ViewGroup parent) {
+                View view = super.getDropDownView(position, convertView, parent);
+                ((TextView ) view).setGravity(Gravity.CENTER);
+                ((TextView) view).setTextColor(Color.BLACK);
+                ((TextView) view).setTextSize(20);
+                if (position % 2 == 0) { // we're on an even row
+                    view.setBackgroundColor(Color.WHITE);
+                } else {
+                    view.setBackgroundColor(Color.LTGRAY);
+                }
+                return view;
+            }
+
+        };
+        bodyGoalSpinner.setAdapter(new NothingSelectedSpinnerAdapter(bodyGoalSpinnerAdapter, R.layout.body_goal_nothing_selected, this));
 
     }
 }

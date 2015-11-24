@@ -105,8 +105,17 @@ public class LogBrainWorkoutActivity extends Activity {
             public void onClick(View view) {
                     // creating new product in background thread
                     String userID = new SessionVariables().getUserID();
-                    //try catch need here
-                    String brainWorkoutName = brainWorkoutSpinner.getSelectedItem().toString();
+                    String brainWorkoutName;
+                    try {
+                        brainWorkoutName = brainWorkoutSpinner.getSelectedItem().toString();
+                    }
+                    catch(Exception e)
+                    {
+                        Toast toast = Toast.makeText(getApplicationContext(), "Please Complete All Data Fields!", Toast.LENGTH_LONG);
+                        toast.setGravity(Gravity.TOP | Gravity.CENTER_HORIZONTAL, 0, 100);
+                        toast.show();
+                        return;
+                    }
                     double hours = hoursSpinner.getSelectedItemPosition();
                     int minutesPos = minutesSpinner.getSelectedItemPosition();
 
@@ -116,15 +125,13 @@ public class LogBrainWorkoutActivity extends Activity {
                     else if (minutesPos == 2){
                         hours += .5;
                     }
-                    else{
-                        if(minutesPos != 0){
-                            hours += .75;
-                        }
+                    else if (minutesPos == 3){
+                        hours += .75;
                     }
                     String workoutTime = String.valueOf(hours);
 
 
-                    if (workoutTime.equals("0")) {
+                    if (workoutTime.equals("0.0")) {
                         Toast toast = Toast.makeText(getApplicationContext(), "Please Complete All Data Fields!", Toast.LENGTH_LONG);
                         toast.setGravity(Gravity.TOP | Gravity.CENTER_HORIZONTAL, 0, 100);
                         toast.show();
