@@ -105,6 +105,7 @@ public class LogBrainWorkoutActivity extends Activity {
             public void onClick(View view) {
                     // creating new product in background thread
                     String userID = new SessionVariables().getUserID();
+                    //try catch need here
                     String brainWorkoutName = brainWorkoutSpinner.getSelectedItem().toString();
                     double hours = hoursSpinner.getSelectedItemPosition();
                     int minutesPos = minutesSpinner.getSelectedItemPosition();
@@ -116,7 +117,9 @@ public class LogBrainWorkoutActivity extends Activity {
                         hours += .5;
                     }
                     else{
-                        hours += .75;
+                        if(minutesPos != 0){
+                            hours += .75;
+                        }
                     }
                     String workoutTime = String.valueOf(hours);
 

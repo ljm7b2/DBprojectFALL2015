@@ -23,6 +23,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Vector;
 
 public class AllWorkoutsActivity extends ListActivity {
 
@@ -32,6 +33,7 @@ public class AllWorkoutsActivity extends ListActivity {
     // Creating JSON Parser object
     JSONParser2 jParser2 = new JSONParser2();
 
+    public static Vector<String> my_vec = new Vector<>();
     ArrayList<HashMap<String, String>> workoutsList;
 
     ArrayList<HashMap<String, String>> bodyList;
@@ -46,7 +48,8 @@ public class AllWorkoutsActivity extends ListActivity {
     private static final String TAG_NAME = "Workout";
     private static final String TAG_DURATION = "Duration";
     private static final String TAG_TYPE = "Type";
-
+    private static final String TAG_DATE = "Date";
+    public static int my_count = -1;
     //workouts JSONArray
     JSONArray workouts = null;
 
@@ -117,29 +120,54 @@ public class AllWorkoutsActivity extends ListActivity {
 
                     // looping through All workouts
 
-
+                        String dateEarlier = new String();
                         for (int i = 0; i < workouts.length(); i++) {
                             JSONObject c = workouts.getJSONObject(i);
+
+                            if(i==0){
+                                dateEarlier = c.getString(TAG_DATE);
+                            }
 
                             // Storing each json item in variable
                             //String id = c.getString(TAG_WID);
                             String name = c.getString(TAG_NAME);
                             String duration = c.getString(TAG_DURATION);
                             String type = c.getString(TAG_TYPE);
+                            String dateCurrent = c.getString(TAG_DATE);
 
-                            // creating new HashMap
-                            HashMap<String, String> map = new HashMap<String, String>();
+                            if (!dateCurrent.equals(dateEarlier) || i == 0) {
+                                dateEarlier = dateCurrent;
+                                my_vec.add(String.valueOf(i));
 
-                            // adding each child node to HashMap key => value
-                            //map.put(TAG_WID, id);
-                            map.put(TAG_NAME, "Activity: " + name);
-                            map.put(TAG_DURATION, "Duration: " + duration + " hours");
-                            map.put(TAG_TYPE, "Description: " + type);
+                                // creating new HashMap
+                                HashMap<String, String> map = new HashMap<String, String>();
 
-                            // adding HashList to ArrayList
+                                // adding each child node to HashMap key => value
+                                //map.put(TAG_WID, id);
+                                map.put(TAG_NAME, dateEarlier.substring(5,7) + "-" + dateEarlier.substring(8,10) + "-" + dateEarlier.substring(0,4));
+                                map.put(TAG_DURATION, "");
+                                map.put(TAG_TYPE, "");
+
+                                // adding HashList to ArrayList
 
 
-                            workoutsList.add(map);
+                                workoutsList.add(map);
+                            }
+
+                                // creating new HashMap
+                                HashMap<String, String> map = new HashMap<String, String>();
+
+                                // adding each child node to HashMap key => value
+                                //map.put(TAG_WID, id);
+                                map.put(TAG_NAME, "Activity: " + name);
+                                map.put(TAG_DURATION, "Duration: " + duration + " hours");
+                                map.put(TAG_TYPE, "Description: " + type);
+
+                                // adding HashList to ArrayList
+
+
+                                workoutsList.add(map);
+
 
                         }
 
@@ -181,7 +209,8 @@ public class AllWorkoutsActivity extends ListActivity {
                             AllWorkoutsActivity.this, workoutsList,
                             R.layout.list_item_brain, new String[] {
                             TAG_NAME, TAG_DURATION},
-                            new int[] { R.id.name_brain, R.id.duration_brain});
+                            new int[] { R.id.name_brain, R.id.duration_brain}){
+                    };
                     // updating listview
 
 

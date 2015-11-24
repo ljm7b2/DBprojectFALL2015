@@ -113,7 +113,9 @@ public class LogBodyWorkoutActivity extends Activity {
                     hours += .5;
                 }
                 else{
-                    hours += .75;
+                    if (minutesPos != 0) {
+                        hours += .75;
+                    }
                 }
                 String workoutTime = String.valueOf(hours);
 

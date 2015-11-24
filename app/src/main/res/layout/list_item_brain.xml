@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical" >
+    android:orientation="vertical">
 
 
     <!-- icon -->
@@ -13,7 +13,8 @@
         android:src="@drawable/ic_brain"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:background="@color/main_cyan" />
 
     <!-- icon -->
     <ImageView
@@ -23,7 +24,8 @@
         android:src="@drawable/ic_brain"
         android:layout_below="@+id/item_icon"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:background="@color/main_pink" />
 
     <!-- Name Label -->
     <TextView
@@ -39,7 +41,7 @@
         android:layout_toRightOf="@+id/item_icon"
         android:layout_toLeftOf="@+id/item_icon3"
         android:layout_toStartOf="@+id/item_icon3"
-        android:background="#d2d2d2" />
+        android:background="@color/main_cyan" />
 
     <TextView
         android:id="@+id/duration_brain"
@@ -54,7 +56,7 @@
         android:layout_toRightOf="@+id/item_icon"
         android:layout_toStartOf="@+id/item_icon3"
         android:layout_toLeftOf="@+id/item_icon3"
-        android:background="#d2d2d2" />
+        android:background="@color/main_cyan" />
     <ImageView
         android:id="@+id/item_icon3"
         android:layout_width="32dp"
@@ -62,7 +64,8 @@
         android:src="@drawable/ic_body"
         android:layout_alignTop="@+id/item_icon"
         android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignParentEnd="true"
+        android:background="@color/main_pink" />
     <ImageView
         android:id="@+id/item_icon4"
         android:layout_width="32dp"
@@ -70,6 +73,7 @@
         android:src="@drawable/ic_body"
         android:layout_below="@+id/item_icon3"
         android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignParentEnd="true"
+        android:background="@color/main_cyan" />
 
 </RelativeLayout>
