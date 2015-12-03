@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@android:color/background_dark"
+    android:background="@drawable/reduced_background"
     android:weightSum="1">
 
     <Spinner
@@ -28,7 +28,8 @@
             android:layout_height="68dp"
             android:layout_weight=".5"
             android:background="@color/white"
-            android:layout_marginTop="15dp" />
+            android:layout_marginTop="15dp"
+            android:layout_marginRight="5dp" />
 
         <Spinner
             android:id="@+id/minutesSpinner"
@@ -36,7 +37,8 @@
             android:layout_height="68dp"
             android:layout_weight=".5"
             android:background="@color/white"
-            android:layout_marginTop="15dp" />
+            android:layout_marginTop="15dp"
+            android:layout_marginLeft="5dp" />
 
     </LinearLayout>
 
@@ -51,6 +53,14 @@
         android:layout_gravity="center"
         android:layout_marginTop="15dp"
         android:clickable="true" />
+
+    <!--<ImageView-->
+        <!--android:id="@+id/imageView12"-->
+        <!--android:layout_width="150dp"-->
+        <!--android:layout_height="150dp"-->
+        <!--android:src="@drawable/brainlog1"-->
+        <!--android:layout_gravity="center_horizontal"-->
+        <!--android:layout_marginTop="50dp" />-->
 
 
 </LinearLayout>

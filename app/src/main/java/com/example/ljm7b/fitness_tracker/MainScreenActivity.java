@@ -104,6 +104,7 @@ public class MainScreenActivity extends AppCompatActivity{
         mNavItems.add(new NavItem("Log Body Workout", "Log Time Pumping Iron", R.drawable.ic_body));
         mNavItems.add(new NavItem("View Activity Log", "Everything You Did Today", R.drawable.ic_binoculars));
         mNavItems.add(new NavItem("Video Workouts", "Feel Inspired", R.drawable.ic_action_video));
+        mNavItems.add(new NavItem("Log Out", "", R.drawable.iconclosecircled));
 
         // DrawerLayout
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
@@ -148,6 +149,12 @@ public class MainScreenActivity extends AppCompatActivity{
                         Intent i = new Intent(getApplicationContext(), VideoMainActivity.class);
                         startActivity(i);
                         break;
+                    }
+                    case(4):{
+                        Intent i = new Intent(getApplicationContext(), SplashScreenExit.class);
+                        startActivity(i);
+                        break;
+
                     }
                 }
 

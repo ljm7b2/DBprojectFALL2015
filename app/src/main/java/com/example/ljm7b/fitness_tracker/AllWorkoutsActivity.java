@@ -22,6 +22,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Vector;
@@ -53,6 +55,9 @@ public class AllWorkoutsActivity extends ListActivity {
     public static int my_count = -1;
     //workouts JSONArray
     JSONArray workouts = null;
+
+    public String monthsArr[] = {"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" };
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -126,13 +131,15 @@ public class AllWorkoutsActivity extends ListActivity {
                     Log.d("The JSON STRING",json.toString());
                     workouts = json.getJSONArray(TAG_WORKOUTS);
 
+                    workouts = sortJArray(workouts);
+
                     // looping through All workouts
 
                         String dateEarlier = new String();
-                        for (int i = 0; i < workouts.length(); i++) {
+                        for (int i = workouts.length()-1; i >= 0; i--) {
                             JSONObject c = workouts.getJSONObject(i);
 
-                            if(i==0){
+                            if(i==workouts.length()-1){
                                 dateEarlier = c.getString(TAG_DATE);
                             }
 
@@ -143,7 +150,7 @@ public class AllWorkoutsActivity extends ListActivity {
                             String type = c.getString(TAG_TYPE);
                             String dateCurrent = c.getString(TAG_DATE);
 
-                            if (!dateCurrent.equals(dateEarlier) || i == 0) {
+                            if (!dateCurrent.equals(dateEarlier) || i == workouts.length()-1) {
                                 dateEarlier = dateCurrent;
                                 my_vec.add(String.valueOf(i));
 
@@ -152,7 +159,7 @@ public class AllWorkoutsActivity extends ListActivity {
 
                                 // adding each child node to HashMap key => value
                                 //map.put(TAG_WID, id);
-                                map.put(TAG_NAME, dateEarlier.substring(5,7) + "-" + dateEarlier.substring(8,10) + "-" + dateEarlier.substring(0,4));
+                                map.put(TAG_NAME, monthsArr[Integer.parseInt(dateEarlier.substring(5,7))-1].toUpperCase() + "  " + dateEarlier.substring(8,10) + ",  " + dateEarlier.substring(0,4));
                                 map.put(TAG_DURATION, "");
                                 map.put(TAG_TYPE, "");
 
@@ -229,6 +236,47 @@ public class AllWorkoutsActivity extends ListActivity {
 
         }
 
+    }
+
+    public JSONArray sortJArray(JSONArray jsonArr){
+        JSONArray sortedJsonArray = new JSONArray();
+
+        List<JSONObject> jsonValues = new ArrayList<JSONObject>();
+        for (int i = 0; i < jsonArr.length(); i++) {
+            try {
+                jsonValues.add(jsonArr.getJSONObject(i));
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+        }
+
+        Collections.sort(jsonValues, new Comparator<JSONObject>() {
+            //You can change "Name" with "ID" if you want to sort by ID
+            private static final String KEY_NAME = "Date";
+
+            @Override
+            public int compare(JSONObject a, JSONObject b) {
+                String valA = new String();
+                String valB = new String();
+
+                try {
+                    valA = (String) a.get(KEY_NAME);
+                    valB = (String) b.get(KEY_NAME);
+                } catch (JSONException e) {
+                    //do something
+                }
+
+                return valA.compareTo(valB);
+                //if you want to change the sort order, simply use the following:
+                //return -valA.compareTo(valB);
+            }
+        });
+
+        for (int i = 0; i < jsonArr.length(); i++) {
+            sortedJsonArray.put(jsonValues.get(i));
+        }
+        return sortedJsonArray;
     }
 }
 

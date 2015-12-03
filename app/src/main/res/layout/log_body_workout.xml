@@ -3,7 +3,7 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:orientation="vertical"
-    android:background="@color/black"
+    android:background="@drawable/reduced_background"
     android:weightSum="1">
 
     <!-- Input Name -->
@@ -29,7 +29,8 @@
             android:layout_height="68dp"
             android:layout_weight=".5"
             android:background="@color/white"
-            android:layout_marginTop="15dp" />
+            android:layout_marginTop="15dp"
+            android:layout_marginRight="5dp" />
 
         <Spinner
             android:id="@+id/minutesSpinner"
@@ -37,7 +38,8 @@
             android:layout_height="68dp"
             android:layout_weight=".5"
             android:background="@color/white"
-            android:layout_marginTop="15dp" />
+            android:layout_marginTop="15dp"
+            android:layout_marginLeft="5dp" />
     </LinearLayout>
 
 
@@ -50,5 +52,13 @@
         android:gravity="center"
         android:layout_gravity="center"
         android:layout_marginTop="15dp" />
+
+    <!--<ImageView-->
+        <!--android:id="@+id/imageView12"-->
+        <!--android:layout_width="150dp"-->
+        <!--android:layout_height="150dp"-->
+        <!--android:src="@drawable/dumbbell"-->
+        <!--android:layout_gravity="center_horizontal"-->
+        <!--android:layout_marginTop="50dp" />-->
 
 </LinearLayout>

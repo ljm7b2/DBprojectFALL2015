@@ -75,6 +75,8 @@
 
         <activity android:name=".SetGoalsActivity"
             android:label="Set Your Weekly Goals"/>
+        <activity android:name=".SplashScreenExit"
+            android:label="exit"/>
 
         <meta-data
             android:name="io.fabric.ApiKey"
