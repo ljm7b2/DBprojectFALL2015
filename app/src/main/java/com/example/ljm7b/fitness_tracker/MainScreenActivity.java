@@ -559,7 +559,7 @@ public class MainScreenActivity extends AppCompatActivity{
             mChart.setDescription("");
             //mChart.setDescriptionTextSize(16);
             //mChart.setDescriptionPosition(0,0);
-            mChart.setBackgroundColor(Color.LTGRAY);
+            mChart.setBackgroundColor(Color.rgb(242, 242, 242));
             mChart.setDrawGridBackground(false);
             mChart.setDrawBarShadow(false);
             mChart.animateY(2000);
@@ -603,7 +603,7 @@ public class MainScreenActivity extends AppCompatActivity{
             mChart2.setDescription("");
             //mChart.setDescriptionTextSize(16);
             //mChart.setDescriptionPosition(0,0);
-            mChart2.setBackgroundColor(Color.LTGRAY);
+            mChart2.setBackgroundColor(Color.rgb(242, 242, 242));
             mChart2.setDrawGridBackground(false);
             mChart2.setDrawBarShadow(false);
             mChart2.animateY(2000);
