@@ -66,6 +66,11 @@ public class YouTubeContent {
                 addItem(new YouTubeVideo("fcN37TxBE_s", "Fat Burning Cardio Workout - 37 Minute Fitness Blender Cardio Workout at Home"));
                 addItem(new YouTubeVideo("XHSSLASOwu8", "Judo: Introduction for Beginners"));
                 addItem(new YouTubeVideo("oUqgPSZmhro", "7 Styles of Barbell Curls For Bigger Biceps"));
+                addItem(new YouTubeVideo("2Gj3d4E-qeM", "THE HISTORY OF COMPUTER HACKING"));
+                addItem(new YouTubeVideo("Fb3gn5GsvRk", "Introduction to Quantum Computers"));
+                addItem(new YouTubeVideo("YX40hbAHx3s", "P vs. NP and the Computational Complexity Zoo"));
+                addItem(new YouTubeVideo("uDBZnaoJVlk", "IBM Watson: Smartest Machine ever built"));
+                addItem(new YouTubeVideo("34sEX6VM9sU", "Life in The Universe Documentary"));
 
 
     }
